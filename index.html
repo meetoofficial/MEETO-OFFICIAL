@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEETO | Connect Through Travel</title>
+    <meta name="description" content="MEETO connects travelers worldwide through AI-powered adventure planning">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">MEETO</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Stories</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="app.html" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Launch App
+                    </a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Travel Together,</span>
+                        <br>Adventure Forever
+                    </h1>
+                    <p class="hero-description">
+                        MEETO transforms solo journeys into shared adventures. 
+                        Connect with like-minded travelers, plan unforgettable experiences, 
+                        and create memories that last a lifetime.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="app.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play"></i> Start Your Journey
+                        </a>
+                        <a href="#features" class="btn btn-outline btn-lg">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3>15K+</h3>
+                            <p>Adventures Created</p>
+                        </div>
+                        <div class="stat">
+                            <h3>65K+</h3>
+                            <p>Travelers Connected</p>
+                        </div>
+                        <div class="stat">
+                            <h3>120+</h3>
+                            <p>Countries</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <img src="images/meetoplet.jpg" alt="MEETO App">
+
+                        </div>
+                        <div class="frame"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Travelers Love MEETO</h2>
+                <p class="section-subtitle">Everything you need for meaningful connections on the road</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Matching</h3>
+                    <p>Our smart algorithm matches you with travelers who share your interests, travel style, and personality.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Personality-based matching</li>
+                        <li><i class="fas fa-check"></i> Interest alignment</li>
+                        <li><i class="fas fa-check"></i> Travel style compatibility</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Group Planning</h3>
+                    <p>Collaborative tools to plan adventures together. From restaurants to hiking trails, plan it all in one place.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Real-time collaboration</li>
+                        <li><i class="fas fa-check"></i> Voting systems</li>
+                        <li><i class="fas fa-check"></i> Shared checklists</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Smart Discovery</h3>
+                    <p>Find hidden gems and local experiences curated for your group's preferences and location.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Local recommendations</li>
+                        <li><i class="fas fa-check"></i> Price range filters</li>
+                        <li><i class="fas fa-check"></i> Real-time availability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How MEETO Works</h2>
+                <p class="section-subtitle">Three simple steps to amazing adventures</p>
+            </div>
+            
+            <div class="steps-timeline">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Create Your Travel Profile</h3>
+                        <p>Tell us about your travel style, interests, and what kind of adventures you're seeking. Upload photos and set your preferences.</p>
+                        <div class="step-image">
+                            <img src="images/meetoplet.jpg" alt="Create Profile">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Find Perfect Travel Buddies</h3>
+                        <p>Browse through verified travelers in your destination. Use filters to find people who match your vibe and schedule.</p>
+                        <div class="step-image">
+                            <img src="images/meetoplet.jpg" alt="Find Buddies">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Plan & Adventure Together</h3>
+                        <p>Use our collaborative planning tools to create the perfect itinerary. Chat, share locations, and make memories.</p>
+                        <div class="screen">
+    <img src="meeto-app.png" alt="MEETO App">
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-content">
+                <h2>Experience MEETO in Action</h2>
+                <p>See how travelers are connecting worldwide through our platform</p>
+                
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play"></i>
+                            <p>Watch Demo Video</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="app.html" class="btn btn-primary btn-xl">
+                    <i class="fas fa-magic"></i> Try Interactive Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Traveler Stories</h2>
+                <p class="section-subtitle">Real experiences from our global community</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"MEETO changed how I travel. I went to Tokyo alone but ended up with an amazing group of friends!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/meetoplet.jpg" alt="Sarah">
+                        <div>
+                            <h4>Sarah Chen</h4>
+                            <p>Digital Nomad • Japan</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The group planning feature is genius. We planned a week in Bali with 6 strangers who became family."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="images/meetoplet.jpg" alt="James">
+                        <div>
+                            <h4>James Rodriguez</h4>
+                            <p>Photographer • Bali</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"As a solo female traveler, safety was my concern. MEETO's verification system gave me peace of mind."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Aisha">
+                        <div>
+                            <h4>Aisha Mohammed</h4>
+                            <p>Student • Morocco</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet The Visionaries</h2>
+                <p class="section-subtitle">The passionate team behind MEETO</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/meetoplet.jpg" alt="Founder">
+                    </div>
+                    <div class="member-info">
+                        <h3>Khouloud Chebboubi</h3>
+                        <p class="role">Founder & CEO</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="aimages/meetoplet.jpg" alt="CTO">
+                    </div>
+                    <div class="member-info">
+                        <h3>David Kim</h3>
+                        <p class="role">CTO</p>
+                        <p>AI/ML expert with background in social networking platforms</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/meetoplet.jpg" alt="Designer">
+                    </div>
+                    <div class="member-info">
+                        <h3>Maya Patel</h3>
+                        <p class="role">Head of Design</p>
+                        <p>UX specialist focused on creating intuitive travel experiences</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                            <a href="#"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Travel Experience?</h2>
+                <p>Join thousands of travelers creating meaningful connections worldwide</p>
+                
+                <div class="cta-actions">
+                    <a href="app.html" class="btn btn-primary btn-xl">
+                        <i class="fas fa-user-plus"></i> Sign Up Free
+                    </a>
+                    <a href="#contact" class="btn btn-outline btn-xl">
+                        <i class="fas fa-question-circle"></i> Questions?
+                    </a>
+                </div>
+                
+                <div class="app-badges">
+                    <div class="badge">
+                        <i class="fab fa-apple"></i>
+                        <span>Coming Soon on iOS</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fab fa-google-play"></i>
+                        <span>Coming Soon on Android</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-globe"></i>
+                        <span>Available on Web</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo">
+                        <span class="logo-text">MEETO</span>
+                    </a>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="app.html">Web App</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#updates">Updates</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#press">Press</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#safety">Safety Center</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#status">System Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                        <li><a href="#guidelines">Community Guidelines</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+        </div>
+    </footer>
