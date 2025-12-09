@@ -394,11 +394,11 @@ if (startJourneyBtn) {
 // Replace the existing setupSocialLinks function with this updated version
 function setupSocialLinks() {
     const socialLinks = {
-        twitter: 'https://twitter.com/meeto',
-        instagram: 'https://instagram.com/meeto',
-        facebook: 'https://facebook.com/meeto',
-        linkedin: 'https://linkedin.com/company/meeto', // Add your actual LinkedIn URL here
-        youtube: 'https://youtube.com/meeto'
+        
+        instagram: 'https://www.instagram.com/m_eet_o/',
+       
+        linkedin: 'www.linkedin.com/in/meeto-company', // Add your actual LinkedIn URL here
+       
     };
     
     document.querySelectorAll('.social-links a').forEach(link => {
