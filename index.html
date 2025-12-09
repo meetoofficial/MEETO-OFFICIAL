@@ -369,9 +369,9 @@
                     <a href="#" class="btn btn-primary btn-xl">
                         <i class="fas fa-user-plus"></i> Sign Up Free
                     </a>
-                    <a href="#contact" class="btn btn-outline btn-xl">
-                        <i class="fas fa-question-circle"></i> Questions?
-                    </a>
+                   <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
+    <i class="fas fa-question-circle"></i> Questions?
+</a>
                 </div>
                 
                 <div class="app-badges">
@@ -443,6 +443,98 @@
         </div>
     </div>
 </footer>
+
+
+
+
+    <!-- FAQ Modal -->
+<div id="questions-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 20px; padding: 40px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="margin: 0 0 5px 0; color: var(--primary);">Need Help?</h2>
+                <p style="color: #666; margin: 0;">We're here to answer your questions</p>
+            </div>
+            <button onclick="closeQuestions()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999;">×</button>
+        </div>
+        
+        <div style="display: grid; gap: 15px; margin-bottom: 30px;">
+            <div class="faq-item" onclick="toggleFaq(this)" style="padding: 20px; border: 1px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px;">How do I get started with MEETO?</h3>
+                    <span style="color: var(--primary);">+</span>
+                </div>
+                <div class="faq-answer" style="display: none; margin-top: 15px; color: #555; line-height: 1.6;">
+                    Just click "Start Your Journey", watch our quick demo video, and you can create your first hangout in minutes!
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="toggleFaq(this)" style="padding: 20px; border: 1px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px;">Is MEETO really free?</h3>
+                    <span style="color: var(--primary);">+</span>
+                </div>
+                <div class="faq-answer" style="display: none; margin-top: 15px; color: #555; line-height: 1.6;">
+                    Yes! MEETO is completely free. We believe in making social planning accessible to everyone.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="toggleFaq(this)" style="padding: 20px; border: 1px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px;">How do I invite friends?</h3>
+                    <span style="color: var(--primary);">+</span>
+                </div>
+                <div class="faq-answer" style="display: none; margin-top: 15px; color: #555; line-height: 1.6;">
+                    When creating a hangout, just add your friends' emails or phone numbers. They'll get a link to join - no app download needed!
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="margin-bottom: 20px; color: #666;">Didn't find your answer?</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="window.location.href='mailto:meeto.official@gmail.com'" style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    Email Our Team
+                </button>
+                <button onclick="closeQuestions()" style="background: #f5f5f5; color: #333; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openQuestions() {
+    document.getElementById('questions-modal').style.display = 'flex';
+}
+
+function closeQuestions() {
+    document.getElementById('questions-modal').style.display = 'none';
+}
+
+function toggleFaq(element) {
+    const answer = element.querySelector('.faq-answer');
+    const icon = element.querySelector('span');
+    
+    if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        icon.textContent = '+';
+        element.style.background = 'white';
+    } else {
+        answer.style.display = 'block';
+        icon.textContent = '−';
+        element.style.background = '#f9f9ff';
+    }
+}
+
+// Close modal when clicking outside
+document.getElementById('questions-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeQuestions();
+    }
+});
+</script>
     <!-- JavaScript - Simple version without errors -->
     <script>
         // Simple mobile menu toggle
