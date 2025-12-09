@@ -408,7 +408,10 @@ function setupEmailLinks() {
     if (helpCenterLink) {
         helpCenterLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = 'mailto:meetoassist@gmail.com?subject=MEETO Help Center Inquiry';
+            // Create a better subject line
+            const subject = encodeURIComponent("MEETO Help Center Support Request");
+            const body = encodeURIComponent("Hello MEETO Support Team,\n\nI need help with:\n\n[Please describe your issue here]\n\nThank you!");
+            window.location.href = `mailto:meetoassist@gmail.com?subject=${subject}&body=${body}`;
         });
     }
     
@@ -417,7 +420,10 @@ function setupEmailLinks() {
     if (contactUsLink) {
         contactUsLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = 'mailto:meeto.official@gmail.com?subject=MEETO Contact Inquiry';
+            // Create a better subject line
+            const subject = encodeURIComponent("MEETO Contact Inquiry");
+            const body = encodeURIComponent("Hello MEETO Team,\n\nI'd like to get in touch about:\n\n[Please describe your inquiry here]\n\nBest regards,");
+            window.location.href = `mailto:meeto.official@gmail.com?subject=${subject}&body=${body}`;
         });
     }
     
