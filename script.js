@@ -370,7 +370,107 @@ async function loadBlogPosts() {
         console.error('Error loading blog posts:', error);
     }
 }
+// 1. Start Journey button - opens DOM video
+const startJourneyBtn = document.getElementById('startJourney');
+if (startJourneyBtn) {
+    startJourneyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Trigger the same functionality as video demo
+        const videoPlaceholder = document.querySelector('.video-placeholder');
+        if (videoPlaceholder) {
+            videoPlaceholder.click(); // This will open the video modal
+        } else {
+            // Fallback: manually open video modal
+            setupVideoDemo();
+            setTimeout(() => {
+                const videoPlaceholder = document.querySelector('.video-placeholder');
+                if (videoPlaceholder) videoPlaceholder.click();
+            }, 100);
+        }
+    });
+}
 
+// 2. LinkedIn link - Update setupSocialLinks function
+// Replace the existing setupSocialLinks function with this updated version
+function setupSocialLinks() {
+    const socialLinks = {
+        twitter: 'https://twitter.com/meeto',
+        instagram: 'https://instagram.com/meeto',
+        facebook: 'https://facebook.com/meeto',
+        linkedin: 'https://linkedin.com/company/meeto', // Add your actual LinkedIn URL here
+        youtube: 'https://youtube.com/meeto'
+    };
+    
+    document.querySelectorAll('.social-links a').forEach(link => {
+        const icon = link.querySelector('i');
+        if (icon) {
+            const classNames = icon.className.split(' ');
+            const platformClass = classNames.find(cls => cls.startsWith('fa-'));
+            if (platformClass) {
+                const platform = platformClass.replace('fa-', '');
+                if (socialLinks[platform]) {
+                    link.href = socialLinks[platform];
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                }
+            }
+        }
+    });
+}
+
+// 3. Email contact functionality
+function setupEmailLinks() {
+    // Help Center -> opens email to meetoassist@gmail.com
+    const helpCenterLink = document.getElementById('helpCenter');
+    if (helpCenterLink) {
+        helpCenterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'mailto:meetoassist@gmail.com?subject=MEETO Help Center Inquiry';
+        });
+    }
+    
+    // Contact Us -> opens email to meeto.official@gmail.com
+    const contactUsLink = document.getElementById('contactUs');
+    if (contactUsLink) {
+        contactUsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'mailto:meeto.official@gmail.com?subject=MEETO Contact Inquiry';
+        });
+    }
+    
+    // Questions? -> scrolls to FAQ section (you'll need to add this section)
+    // For now, let's make it open a general contact email
+    const questionsLink = document.getElementById('questionsLink');
+    if (questionsLink) {
+        questionsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Option 1: Open email
+            window.location.href = 'mailto:meeto.official@gmail.com?subject=Question about MEETO';
+            
+            // Option 2: If you want to create a FAQ section later:
+            // const faqSection = document.getElementById('faq');
+            // if (faqSection) {
+            //     faqSection.scrollIntoView({ behavior: 'smooth' });
+            // } else {
+            //     window.location.href = 'mailto:meeto.official@gmail.com?subject=Question about MEETO';
+            // }
+        });
+    }
+}
+
+// 4. Launch App button functionality
+const launchAppBtn = document.getElementById('launchAppBtn');
+if (launchAppBtn) {
+    launchAppBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Track analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.logEvent('launch_app_clicked');
+        }
+        // Redirect to app page or show interactive demo
+        window.location.href = 'app.html';
+    });
+}
 // Initialize everything when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Firebase counters
@@ -393,6 +493,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load blog posts
     loadBlogPosts();
+
+    // Setup email links (NEW)
+    setupEmailLinks();
     
     // Update footer year
     const yearSpan = document.querySelector('.current-year');
