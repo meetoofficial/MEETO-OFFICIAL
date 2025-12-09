@@ -370,11 +370,7 @@ async function loadBlogPosts() {
         console.error('Error loading blog posts:', error);
     }
 }
-// 1. Start Journey button - opens DOM video
-const startJourneyBtn = document.getElementById('startJourney');
-if (startJourneyBtn) {
-    startJourneyBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+
         // Trigger the same functionality as video demo
         const videoPlaceholder = document.querySelector('.video-placeholder');
         if (videoPlaceholder) {
