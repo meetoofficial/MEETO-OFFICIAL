@@ -657,7 +657,101 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 });
+// Waitlist Form Functions
+function openWaitlistForm() {
+    const modal = document.getElementById('waitlist-modal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // Reset form state
+    document.getElementById('alternative-form').style.display = 'none';
+    document.getElementById('google-form-embed').style.display = 'block';
+    
+    // Animate progress bar
+    setTimeout(() => {
+        document.getElementById('form-progress').style.width = '100%';
+    }, 300);
+    
+    // Track analytics
+    if (typeof analytics !== 'undefined') {
+        analytics.logEvent('waitlist_modal_opened');
+    }
+}
 
+function closeWaitlistForm() {
+    const modal = document.getElementById('waitlist-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // Reset progress bar
+    document.getElementById('form-progress').style.width = '0%';
+}
+
+// Handle form submission detection
+function setupFormSubmissionListener() {
+    // Check if form was submitted (you can customize this based on Google Form behavior)
+    const iframe = document.getElementById('google-form-embed');
+    if (iframe) {
+        // This is a basic approach - Google Forms are tricky to track
+        // For better tracking, consider using a direct form or webhook
+        window.addEventListener('message', function(event) {
+            // Listen for messages from the iframe
+            if (event.data && event.data.type === 'FORM_SUBMITTED') {
+                showFormSuccess();
+            }
+        });
+        
+        // Fallback: Check URL periodically (basic approach)
+        setInterval(() => {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                if (iframeDoc.body.innerHTML.includes('Thank you')) {
+                    showFormSuccess();
+                }
+            } catch (e) {
+                // Cross-origin restriction, can't access iframe content
+            }
+        }, 1000);
+    }
+}
+
+function showFormSuccess() {
+    document.getElementById('google-form-embed').style.display = 'none';
+    document.getElementById('alternative-form').style.display = 'block';
+    
+    // Track successful submission
+    if (typeof analytics !== 'undefined') {
+        analytics.logEvent('waitlist_form_submitted');
+    }
+}
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('waitlist-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWaitlistForm();
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeWaitlistForm();
+            }
+        });
+        
+        // Initialize form listener
+        setupFormSubmissionListener();
+    }
+    
+    // Remove the old elegant signup modal if it exists
+    const oldModal = document.getElementById('elegant-signup');
+    if (oldModal) {
+        oldModal.remove();
+    }
+});
 // Export for global access (for demo steps)
 window.meetoDemo = {
     selectMood: function(mood) {
