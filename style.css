@@ -1394,3 +1394,122 @@ html {
         max-width: 300px;
     }
 }
+
+
+/* Testimonial Preview Cards */
+.preview-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--primary-light), var(--primary)) border-box;
+}
+
+.preview-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+}
+
+.preview-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--primary), #764ba2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.quote-icon {
+    font-size: 24px;
+    color: var(--primary-light);
+    opacity: 0.3;
+    margin-bottom: 15px;
+}
+
+.avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-light), #f8f9ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+    text-align: center;
+}
+
+.preview-card:hover .preview-overlay {
+    opacity: 1;
+}
+
+/* Pulse Animation */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Stories CTA */
+.stories-cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.stories-cta::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-light), transparent);
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.stories-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, transparent, var(--primary-light));
+    border-radius: 50%;
+    opacity: 0.1;
+}
