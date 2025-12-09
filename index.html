@@ -576,5 +576,79 @@ document.getElementById('questions-modal').addEventListener('click', function(e)
             });
         });
     </script>
+
+
+
+    <!-- Elegant Waitlist Signup Modal -->
+<div id="elegant-signup" class="signup-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); z-index: 9999; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;">
+    <div style="background: white; border-radius: 20px; padding: 50px; max-width: 500px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; position: relative;">
+        <!-- Close button -->
+        <button onclick="closeElegantSignup()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; color: #999; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s;" 
+                onmouseover="this.style.background='#f5f5f5'; this.style.color='#333';" 
+                onmouseout="this.style.background='none'; this.style.color='#999';">
+            ×
+        </button>
+        
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #764ba2); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+                ✨
+            </div>
+            <h2 style="margin-bottom: 10px; color: #333; font-size: 28px;">Join the MEETO Waitlist</h2>
+            <p style="color: #666; line-height: 1.6; font-size: 16px;">Be among the first to experience MEETO. We'll notify you as soon as we launch.</p>
+        </div>
+        
+        <form id="waitlist-form" style="margin-bottom: 30px;">
+            <div style="display: grid; gap: 15px;">
+                <input type="text" placeholder="Your name" required 
+                       style="padding: 16px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: all 0.3s;"
+                       onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
+                
+                <input type="email" placeholder="Your best email" required 
+                       style="padding: 16px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 16px; transition: all 0.3s;"
+                       onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
+                
+                <div style="display: flex; align-items: start; gap: 10px; margin-top: 10px;">
+                    <input type="checkbox" id="agree" style="margin-top: 5px; width: 18px; height: 18px;">
+                    <label for="agree" style="font-size: 14px; color: #666; line-height: 1.5; cursor: pointer;">
+                        Yes, I want to receive updates about MEETO's launch and exclusive early access opportunities.
+                    </label>
+                </div>
+            </div>
+        </form>
+        
+        <button onclick="submitWaitlist()" 
+                style="width: 100%; padding: 18px; background: linear-gradient(to right, var(--primary), #764ba2); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 20px; transition: all 0.3s;"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 20px rgba(102, 126, 234, 0.2)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+            Reserve My Spot
+        </button>
+        
+        <div style="text-align: center;">
+            <button onclick="closeElegantSignup()" 
+                    style="background: none; border: none; color: #666; cursor: pointer; font-size: 14px; transition: all 0.3s; padding: 8px 16px; border-radius: 6px;"
+                    onmouseover="this.style.background='#f5f5f5'; this.style.color='#333';"
+                    onmouseout="this.style.background='none'; this.style.color='#666';">
+                Not ready yet? That's okay!
+            </button>
+        </div>
+        
+        <!-- Success Message (hidden by default) -->
+        <div id="waitlist-success" style="display: none; text-align: center; padding: 40px 0;">
+            <div style="font-size: 60px; margin-bottom: 20px; color: #4CAF50;">🎉</div>
+            <h3 style="margin-bottom: 10px; color: #333; font-size: 24px;">You're on the list!</h3>
+            <p style="color: #666; margin-bottom: 30px; font-size: 16px; line-height: 1.6;">
+                Thank you for joining our waitlist. We'll send you a special welcome email with exclusive early access when we launch.
+            </p>
+            <button onclick="closeElegantSignup()" 
+                    style="background: #f5f5f5; color: #333; border: none; padding: 14px 30px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;"
+                    onmouseover="this.style.background='#e0e0e0'; this.style.transform='translateY(-1px)';"
+                    onmouseout="this.style.background='#f5f5f5'; this.style.transform='translateY(0)';">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
