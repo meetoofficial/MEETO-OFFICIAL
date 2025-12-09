@@ -1367,3 +1367,30 @@ html {
         max-width: 500px;
     }
 }
+
+/* CTA Button Styling */
+.cta-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.btn-xl {
+    padding: 18px 36px !important;
+    font-size: 18px !important;
+    min-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-xl {
+        width: 100%;
+        max-width: 300px;
+    }
+}
