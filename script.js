@@ -766,4 +766,60 @@ window.meetoDemo = {
 
 
     }
+
+
+    // Animate the progress bar in Option 2
+function animateProgressBar() {
+    let percentage = 0;
+    const progressFill = document.getElementById('progress-fill');
+    const progressPercentage = document.getElementById('progress-percentage');
+    
+    if (progressFill && progressPercentage) {
+        const interval = setInterval(() => {
+            if (percentage >= 85) {
+                clearInterval(interval);
+            } else {
+                percentage += Math.random() * 5;
+                progressFill.style.width = Math.min(percentage, 85) + '%';
+                progressPercentage.textContent = Math.min(Math.round(percentage), 85) + '%';
+            }
+        }, 200);
+    }
+}
+
+// Update waitlist count (simulated)
+function updateWaitlistCount() {
+    const countElement = document.getElementById('waitlist-count');
+    if (countElement) {
+        let count = 0;
+        const interval = setInterval(() => {
+            if (count >= 157) {
+                clearInterval(interval);
+            } else {
+                count++;
+                countElement.textContent = count;
+            }
+        }, 20);
+    }
+}
+
+// Initialize when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Start animations
+    setTimeout(() => {
+        animateProgressBar();
+        updateWaitlistCount();
+    }, 1000);
+    
+    // Add hover effects to preview cards
+    document.querySelectorAll('.preview-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
 };
