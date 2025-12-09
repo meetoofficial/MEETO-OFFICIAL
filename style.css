@@ -1299,3 +1299,39 @@ html {
 .purple-text {
     color: #340584 !important;
 }
+
+
+
+
+/* Signup Modal Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.signup-modal > div {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Form focus styles */
+#elegant-signup input:focus {
+    outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #elegant-signup > div {
+        padding: 30px 20px;
+        width: 95%;
+    }
+    
+    #elegant-signup h2 {
+        font-size: 24px;
+    }
+}
