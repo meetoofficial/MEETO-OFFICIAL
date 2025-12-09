@@ -371,20 +371,7 @@ async function loadBlogPosts() {
     }
 }
 
-        // Trigger the same functionality as video demo
-        const videoPlaceholder = document.querySelector('.video-placeholder');
-        if (videoPlaceholder) {
-            videoPlaceholder.click(); // This will open the video modal
-        } else {
-            // Fallback: manually open video modal
-            setupVideoDemo();
-            setTimeout(() => {
-                const videoPlaceholder = document.querySelector('.video-placeholder');
-                if (videoPlaceholder) videoPlaceholder.click();
-            }, 100);
-        }
-    });
-}
+
 
 // 2. LinkedIn link - Update setupSocialLinks function
 // Replace the existing setupSocialLinks function with this updated version
