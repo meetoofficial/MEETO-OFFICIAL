@@ -503,7 +503,139 @@ document.addEventListener('DOMContentLoaded', () => {
             header.style.background = 'rgba(255, 255, 255, 0.95)';
         }
     });
+
+    // Elegant Waitlist Signup Functions
+function openElegantSignup() {
+    document.getElementById('elegant-signup').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function closeElegantSignup() {
+    document.getElementById('elegant-signup').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
     
+    // Reset form if success was shown
+    setTimeout(() => {
+        document.getElementById('waitlist-success').style.display = 'none';
+        document.getElementById('waitlist-form').style.display = 'block';
+        document.querySelector('#waitlist-form').reset();
+        
+        // Show the submit button again
+        const submitBtn = document.querySelector('#elegant-signup button[onclick="submitWaitlist()"]');
+        if (submitBtn) submitBtn.style.display = 'block';
+    }, 300);
+}
+
+function submitWaitlist() {
+    const name = document.querySelector('#waitlist-form input[type="text"]').value.trim();
+    const email = document.querySelector('#waitlist-form input[type="email"]').value.trim();
+    const agree = document.querySelector('#agree').checked;
+    
+    // Basic validation
+    if (!name) {
+        alert('Please enter your name');
+        return;
+    }
+    
+    if (!email) {
+        alert('Please enter your email');
+        return;
+    }
+    
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Hide form, show success message
+    document.getElementById('waitlist-form').style.display = 'none';
+    const submitBtn = document.querySelector('#elegant-signup button[onclick="submitWaitlist()"]');
+    if (submitBtn) submitBtn.style.display = 'none';
+    document.getElementById('waitlist-success').style.display = 'block';
+    
+    // Send data to Firebase (optional - add if you want to store waitlist)
+    saveWaitlistToFirebase(name, email, agree);
+    
+    // Add confetti effect for celebration
+    triggerConfetti();
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function saveWaitlistToFirebase(name, email, wantsUpdates) {
+    // Optional: Save to Firebase if you want to collect waitlist emails
+    // Uncomment and adjust if you want to use this
+    
+    /*
+    try {
+        await addDoc(collection(db, 'waitlist'), {
+            name: name,
+            email: email,
+            wantsUpdates: wantsUpdates,
+            timestamp: serverTimestamp(),
+            status: 'pending'
+        });
+        console.log('Waitlist entry saved to Firebase');
+    } catch (error) {
+        console.error('Error saving to waitlist:', error);
+        // Still show success to user even if Firebase fails
+    }
+    */
+}
+
+function triggerConfetti() {
+    // Simple confetti effect
+    const colors = ['#667eea', '#764ba2', '#6B46C1', '#553C9A'];
+    
+    // Create confetti particles
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '10000';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-20px';
+        confetti.style.opacity = '0.8';
+        
+        document.body.appendChild(confetti);
+        
+        // Animate
+        const animation = confetti.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 0.8 },
+            { transform: `translateY(${window.innerHeight + 100}px) rotate(${360}deg)`, opacity: 0 }
+        ], {
+            duration: 2000 + Math.random() * 2000,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+    }
+}
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('elegant-signup');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeElegantSignup();
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeElegantSignup();
+            }
+        });
+    }
+});
     // Animation observer
     const observerOptions = {
         root: null,
@@ -536,5 +668,8 @@ window.meetoDemo = {
     },
     inviteFriends: function() {
         alert('Friend selector would open here');
+
+
+
     }
 };
