@@ -44,9 +44,9 @@
                 </ul>
                 
                 <div class="nav-actions">
-                    <a href="#" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Launch App
-                    </a>
+                   <a href="#" class="btn btn-primary" id="launchAppBtn">
+    <i class="fas fa-rocket"></i> Launch App
+</a>
                     <button class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -71,9 +71,9 @@
                         No more endless conversations. Just real plans that actually happen.
                     </p>
                     <div class="hero-actions">
-                        <a href="#" class="btn btn-primary btn-lg">
-                            <i class="fas fa-play"></i> Start Your Journey
-                        </a>
+                        <a href="#" id="startJourney" class="btn btn-primary btn-lg">
+    <i class="fas fa-play"></i> Start Your Journey
+</a>
                         <a href="#features" class="btn btn-outline btn-lg">
                             <i class="fas fa-info-circle"></i> Learn More
                         </a>
@@ -359,7 +359,37 @@
             </div>
         </div>
     </section>
-
+<!-- FAQ Section -->
+<section class="faq-section" id="faq">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Find answers to common questions</p>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3>How does MEETO work?</h3>
+                <p>MEETO helps you plan hangouts with friends by allowing you to create events, invite friends, swipe through options, and vote on the final plan.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Is MEETO free to use?</h3>
+                <p>Yes, MEETO is completely free to use for basic features. Premium features may be added in the future.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Can I use MEETO for business events?</h3>
+                <p>While MEETO is designed for social hangouts, it can certainly be used for casual business meetings or team outings.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How do I invite friends?</h3>
+                <p>Simply create a hangout, add your friends' emails or phone numbers, and they'll receive an invitation to join.</p>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
@@ -392,62 +422,59 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo">
-                        <span class="logo-text">MEETO</span>
-                    </a>
-                    <p class="footer-description">Your gateway to plans that actually happen.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        
-                  
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#team">Our Team</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                       
-                    </ul>
+<footer class="footer" id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">MEETO</span>
+                </a>
+                <p class="footer-description">Your gateway to plans that actually happen.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com/company/meeto" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 MEETO. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#" id="helpCenter">Help Center</a></li>
+                    <li><a href="#" id="contactUs">Contact Us</a></li>
+                    <li><a href="#" id="questionsLink">Questions?</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
-
+        
+        <div class="footer-bottom">
+            <p>&copy; <span class="current-year">2025</span> MEETO. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
     <!-- JavaScript - Simple version without errors -->
     <script>
         // Simple mobile menu toggle
