@@ -1295,3 +1295,7 @@ html {
     box-shadow: var(--shadow-md);
     border-color: var(--primary-light);
 }
+
+.purple-text {
+    color: #8a2be2 !important;
+}
