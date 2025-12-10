@@ -2068,3 +2068,124 @@ html {
 .preview-card {
     animation: fadeInUp 0.6s ease-out 0.2s both;
 }
+
+
+/* Users Stories - Minimalistic Design */
+.users-stories {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.minimal-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin: 60px auto;
+    max-width: 900px;
+}
+
+/* ... (keep all the card styles from previous version) ... */
+
+/* Progress Indicator Styles - Now properly positioned */
+.stories-progress-wrapper {
+    max-width: 900px;
+    margin: 60px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.stories-progress {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.progress-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.progress-text i {
+    color: var(--primary);
+    font-size: 18px;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, var(--primary), #764ba2);
+    border-radius: 3px;
+    animation: loading 2s infinite ease-in-out;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+
+/* Alternative: Simpler progress indicator */
+/* Uncomment this if you prefer a simpler version: */
+
+/*
+.stories-progress {
+    max-width: 600px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.stories-progress .progress-text {
+    font-size: 15px;
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+.stories-progress .progress-text i {
+    color: var(--primary);
+    margin-right: 10px;
+}
+*/
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .minimal-cards-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .minimal-card {
+        padding: 30px;
+    }
+    
+    .stories-progress-wrapper {
+        margin-top: 40px;
+        padding-top: 30px;
+    }
+    
+    .progress-text {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .progress-text span {
+        text-align: center;
+        font-size: 13px;
+    }
+}
