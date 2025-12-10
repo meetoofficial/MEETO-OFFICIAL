@@ -526,7 +526,7 @@ function closeMinimalWaitlist() {
     }
 }
 
-function submitMinimalWaitlist() {
+async function submitMinimalWaitlist() {
     const name = document.getElementById('waitlistName').value.trim();
     const email = document.getElementById('waitlistEmail').value.trim();
     
@@ -559,9 +559,37 @@ function submitMinimalWaitlist() {
         submitBtn.disabled = true;
     }
     
-    // Simulate saving (replace with Firebase later)
-    setTimeout(() => {
-        console.log('Saving to waitlist:', { name, email });
+    try {
+        // SAVE TO FIREBASE - THIS IS THE REAL CODE
+        console.log('Saving to Firebase...');
+        
+        // Import Firebase inside the function
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js");
+        const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js");
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAOwk37TCbc_loEb-LFXLK3qWQBdOaaqlU",
+            authDomain: "meeto-website.firebaseapp.com",
+            projectId: "meeto-website",
+            storageBucket: "meeto-website.firebasestorage.app",
+            messagingSenderId: "950489624932",
+            appId: "1:950489624932:web:65f005771901f763e64a71",
+            measurementId: "G-TVM3G555P5"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Save to Firebase
+        const docRef = await addDoc(collection(db, 'waitlist'), {
+            name: name,
+            email: email,
+            timestamp: serverTimestamp(),
+            source: 'website',
+            notified: false
+        });
+        
+        console.log('SUCCESS: Document written with ID: ', docRef.id);
         
         // Show success message
         const form = document.getElementById('minimalWaitlistForm');
@@ -570,17 +598,24 @@ function submitMinimalWaitlist() {
         if (form) form.style.display = 'none';
         if (success) success.style.display = 'block';
         
+        // Simple confetti
+        triggerSimpleConfetti();
+        
+    } catch (error) {
+        console.error('Error saving to waitlist:', error);
+        alert('Error saving. Please try again. Error: ' + error.message);
+    } finally {
         // Reset button state
+        const submitBtn = document.getElementById('submitWaitlistBtn');
+        const btnText = submitBtn?.querySelector('.btn-text');
+        const btnLoading = submitBtn?.querySelector('.btn-loading');
+        
         if (btnText && btnLoading) {
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
             submitBtn.disabled = false;
         }
-        
-        // Simple confetti effect
-        triggerSimpleConfetti();
-        
-    }, 1500);
+    }
     
     return false;
 }
@@ -627,10 +662,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup form submission
     const form = document.getElementById('minimalWaitlistForm');
     if (form) {
-       form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function(e) {
     e.preventDefault();
-    // Force it to use the script.js version
-    window.submitMinimalWaitlist();
+    submitMinimalWaitlist();
 });
     }
     
