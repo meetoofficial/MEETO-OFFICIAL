@@ -498,6 +498,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup email links (NEW)
     setupEmailLinks();
+
+    // In your DOMContentLoaded event listener, add:
+    setupWaitlistForm();
     
     // Update footer year
     const yearSpan = document.querySelector('.current-year');
