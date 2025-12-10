@@ -226,55 +226,45 @@
                 
         </div>
     </section>
-<!-- Users Stories Section - Single Card with Progress Indicator -->
-<section class="users-stories" id="testimonials">
+<!-- Compact User Stories Section -->
+<section class="compact-stories" id="testimonials">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">User Stories</h2>
         </div>
         
-        <!-- Single Card Container -->
-        <div class="single-card-container">
-            <!-- Single Card: Call to Action -->
-            <div class="minimal-card single-story-card">
-                <div class="card-illustration">
-                    <div class="icon-circle">
-                        <i class="fas fa-sparkles"></i>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <span class="card-label">Be the First</span>
+        <!-- Compact Card -->
+        <div class="compact-card-wrapper">
+            <div class="compact-card">
+                <div class="card-top">
+                    <span class="card-tag">Be the First</span>
                     <h3>Your Story Awaits</h3>
-                    <p class="card-description">
-                        Join our exclusive waitlist and become one of the first to experience MEETO. 
-                        Your adventure could be featured here.
-                    </p>
-                    <div class="card-footer">
-                        <div class="user-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="user-info">
-                            <h4>Future MEETO Explorer</h4>
-                            <p>Your City • Coming Soon</p>
-                        </div>
-                    </div>
-                    <button class="card-button" onclick="openCustomWaitlistForm()">
-                        <i class="fas fa-user-plus"></i>
-                        Reserve Your Spot
-                    </button>
+                    <p>Join our waitlist to be among the first to experience MEETO.</p>
                 </div>
                 
-                <!-- Progress Indicator UNDER the card content -->
-                <div class="story-progress-indicator">
-                    <div class="progress-info">
-                        <i class="fas fa-rocket"></i>
-                        <div class="progress-text">
-                            <span class="progress-title">Community Stories Loading</span>
-                            <span class="progress-subtitle">Real user experiences will appear here as we launch</span>
-                        </div>
+                <div class="card-profile">
+                    <div class="profile-icon">
+                        <i class="fas fa-user-circle"></i>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
+                    <div class="profile-info">
+                        <h4>Future MEETO Explorer</h4>
+                        <span>Your City • Coming Soon</span>
+                    </div>
+                </div>
+                
+                <button class="compact-btn" onclick="openCustomWaitlistForm()">
+                    <i class="fas fa-user-plus"></i>
+                    Reserve Your Spot
+                </button>
+                
+                <!-- Progress Indicator -->
+                <div class="compact-progress">
+                    <div class="progress-header">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                        <span>Community stories loading...</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-move"></div>
                     </div>
                 </div>
             </div>
