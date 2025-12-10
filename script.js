@@ -401,28 +401,28 @@ function setupSocialLinks() {
     });
 }
 
-// 3. Email contact functionality
+// Email functionality for Help Center and Contact Us
 function setupEmailLinks() {
     console.log('Setting up email links...');
     
     // Help Center -> opens email to meetoassist@gmail.com
     const helpCenterLink = document.getElementById('helpCenter');
     if (helpCenterLink) {
-        console.log('Found Help Center link');
+        console.log('Help Center link found');
         helpCenterLink.addEventListener('click', (e) => {
             e.preventDefault();
-            const subject = encodeURIComponent("MEETO Help Center Support Request");
+            const subject = encodeURIComponent("MEETO Help Center Support");
             const body = encodeURIComponent("Hello MEETO Support Team,\n\nI need help with:\n\n[Please describe your issue here]\n\nThank you!");
             window.location.href = `mailto:meetoassist@gmail.com?subject=${subject}&body=${body}`;
         });
     } else {
-        console.error('Help Center link not found!');
+        console.error('Help Center link element not found!');
     }
     
     // Contact Us -> opens email to meeto.official@gmail.com
     const contactUsLink = document.getElementById('contactUs');
     if (contactUsLink) {
-        console.log('Found Contact Us link');
+        console.log('Contact Us link found');
         contactUsLink.addEventListener('click', (e) => {
             e.preventDefault();
             const subject = encodeURIComponent("MEETO Contact Inquiry");
@@ -430,9 +430,15 @@ function setupEmailLinks() {
             window.location.href = `mailto:meeto.official@gmail.com?subject=${subject}&body=${body}`;
         });
     } else {
-        console.error('Contact Us link not found!');
+        console.error('Contact Us link element not found!');
     }
 }
+
+// Make sure this function is called when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up email links...');
+    setupEmailLinks();
+});
     
     // Questions? -> scrolls to FAQ section (you'll need to add this section)
     // For now, let's make it open a general contact email
