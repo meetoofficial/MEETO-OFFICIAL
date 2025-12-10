@@ -226,7 +226,7 @@
                 
         </div>
     </section>
-<!-- Testimonials -->
+<!-- Users Stories Section -->
 <section class="testimonials" id="testimonials">
     <div class="container">
         <div class="section-header">
@@ -234,107 +234,77 @@
             <p class="section-subtitle">Be the first to share your experience</p>
         </div>
         
-        <div class="testimonials-grid">
-            <!-- Preview Card 1 -->
-            <div class="testimonial-card preview-card">
-                <div class="preview-badge">
-                    <span>Preview</span>
-                </div>
-                <div class="testimonial-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
+        <!-- Two Centered Cards -->
+        <div class="stories-cards-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 60px 0;">
+            <!-- Card 1 -->
+            <div class="story-interactive-card" onclick="openCustomWaitlistForm()">
+                <div class="card-front">
+                    <div class="card-badge" style="background: linear-gradient(135deg, var(--primary), #764ba2);">
+                        <span>Preview</span>
                     </div>
-                    <p>"This could be your story! Join our waitlist and be among the first to experience MEETO."</p>
-                </div>
-                <div class="testimonial-author">
-                    <div class="avatar-placeholder">
+                    <div class="card-icon">
                         <i class="fas fa-user-plus"></i>
                     </div>
-                    <div>
-                        <h4>Your Story Here</h4>
-                        <p>Future MEETO User • Your City</p>
-                    </div>
-                </div>
-                <div class="preview-overlay">
-                    <button class="btn btn-primary" onclick="openWaitlistForm()">
-                        <i class="fas fa-rocket"></i> Join to Share Your Story
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Preview Card 2 -->
-            <div class="testimonial-card preview-card">
-                <div class="preview-badge">
-                    <span>Coming Soon</span>
-                </div>
-                <div class="testimonial-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p>"Stories loading... Real experiences from our community will appear here soon!"</p>
-                </div>
-                <div class="testimonial-author">
-                    <div class="avatar-placeholder">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div>
-                        <h4>Community Stories</h4>
-                        <p>Launching Soon • Worldwide</p>
-                    </div>
-                </div>
-                <div class="preview-overlay">
-                    <p style="color: #666; margin-bottom: 15px;">Be the first to share</p>
-                    <button class="btn btn-outline" onclick="openWaitlistForm()">
-                        <i class="fas fa-bell"></i> Notify Me
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Preview Card 3 -->
-            <div class="testimonial-card preview-card">
-                <div class="preview-badge">
-                    <span>Interactive</span>
-                </div>
-                <div class="testimonial-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p>"Imagine sharing how MEETO helped you plan the perfect hangout with friends..."</p>
-                </div>
-                <div class="testimonial-author">
-                    <div class="avatar-placeholder">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <div>
-                        <h4>Your Experience</h4>
-                        <p>Share & Inspire Others</p>
-                    </div>
-                </div>
-                <div class="preview-overlay">
-                    <div style="text-align: center;">
-                        <div class="pulse-animation">
-                            <i class="fas fa-heart" style="color: var(--primary); font-size: 24px;"></i>
+                    <h3>Your Story Here</h3>
+                    <p class="card-text">
+                        "This could be your story! Join our waitlist and be among the first to experience MEETO."
+                    </p>
+                    <div class="card-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
                         </div>
-                        <p style="color: #666; margin: 10px 0;">Your story matters</p>
-                        <button class="btn btn-primary" onclick="openWaitlistForm()">
+                        <div>
+                            <h4>Future MEETO User</h4>
+                            <p>Your City</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="cta-content">
+                        <i class="fas fa-rocket" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h3>Share Your Story</h3>
+                        <p>Join now and be the first to share your experience</p>
+                        <button class="btn btn-primary">
                             <i class="fas fa-pen-alt"></i> Reserve Your Spot
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Call to Action -->
-        <div class="stories-cta" style="text-align: center; margin-top: 60px; padding: 40px; background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%); border-radius: 20px; border: 2px dashed var(--primary-light);">
-            <i class="fas fa-comments" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
-            <h3 style="margin-bottom: 15px; color: #333;">Be the First to Share</h3>
-            <p style="color: #666; max-width: 600px; margin: 0 auto 25px; line-height: 1.6;">
-                Join our exclusive waitlist and you'll have the opportunity to be featured as one of our first users. 
-                Share your story and inspire others in our community.
-            </p>
-            <button class="btn btn-primary btn-lg" onclick="openWaitlistForm()">
-                <i class="fas fa-star"></i> Join Waitlist & Share Story
-            </button>
+            
+            <!-- Card 2 -->
+            <div class="story-interactive-card" onclick="openCustomWaitlistForm()">
+                <div class="card-front">
+                    <div class="card-badge" style="background: linear-gradient(135deg, #4CAF50, #45a049);">
+                        <span>Coming Soon</span>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Community Stories</h3>
+                    <p class="card-text">
+                        "Real experiences from our community will appear here soon. Be the first to share!"
+                    </p>
+                    <div class="card-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h4>Worldwide Community</h4>
+                            <p>Launching Soon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="cta-content">
+                        <i class="fas fa-bell" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h3>Get Notified</h3>
+                        <p>Be first to share when we launch</p>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
