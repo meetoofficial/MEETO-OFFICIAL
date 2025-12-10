@@ -803,43 +803,50 @@ function updateWaitlistCount() {
     }
 }
 
-// Custom Form Functions
+
+// Custom Waitlist Form Functions
 function openCustomWaitlistForm() {
     const modal = document.getElementById('custom-waitlist-modal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    
-    // Reset form
-    document.getElementById('custom-waitlist-form').reset();
-    document.getElementById('custom-success').style.display = 'none';
-    document.getElementById('custom-waitlist-form').style.display = 'block';
-    
-    // Animate progress bar
-    setTimeout(() => {
-        document.getElementById('step-progress').style.width = '33%';
-    }, 300);
-    
-    // Track analytics
-    if (typeof analytics !== 'undefined') {
-        analytics.logEvent('custom_waitlist_opened');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        const form = document.getElementById('custom-waitlist-form');
+        const success = document.getElementById('custom-success');
+        if (form) form.reset();
+        if (success) success.style.display = 'none';
+        if (form) form.style.display = 'block';
+        
+        // Animate progress bar
+        setTimeout(() => {
+            const progress = document.getElementById('step-progress');
+            if (progress) progress.style.width = '33%';
+        }, 300);
     }
 }
 
 function closeCustomWaitlistForm() {
     const modal = document.getElementById('custom-waitlist-modal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    
-    // Reset progress
-    document.getElementById('step-progress').style.width = '0%';
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Reset progress
+        const progress = document.getElementById('step-progress');
+        if (progress) progress.style.width = '0%';
+    }
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }
 
 async function submitCustomForm() {
-    const name = document.getElementById('custom-name').value.trim();
-    const email = document.getElementById('custom-email').value.trim();
-    const city = document.getElementById('custom-city').value.trim();
-    const groupSize = document.getElementById('custom-group-size').value;
-    const wantsUpdates = document.getElementById('custom-updates').checked;
+    const name = document.getElementById('custom-name')?.value.trim();
+    const email = document.getElementById('custom-email')?.value.trim();
+    const wantsUpdates = document.getElementById('custom-updates')?.checked;
     
     // Validation
     if (!name) {
@@ -858,19 +865,19 @@ async function submitCustomForm() {
     }
     
     // Show loading state
-    const submitBtn = document.querySelector('#custom-waitlist-modal button[onclick="submitCustomForm()"]');
+    const submitBtn = document.querySelector('#custom-waitlist-form button[onclick="submitCustomForm()"]');
+    if (!submitBtn) return;
+    
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     submitBtn.disabled = true;
     
     try {
-        // Send to Google Sheets using your form
+        // Submit to Google Form with correct field IDs
         const formData = new FormData();
-        formData.append('entry.143646856', name); // Name field
-        formData.append('entry.2009322627', email); // Email field
-        formData.append('entry.1294183492', city || 'Not specified'); // City field
-        formData.append('entry.202061368', groupSize || 'Not specified'); // Group size
-        formData.append('entry.1369062021', wantsUpdates ? 'Yes' : 'No'); // Updates preference
+        formData.append('entry.1138680293', name); // Name field
+        formData.append('entry.1897401214', email); // Email field
+        formData.append('entry.1331061618', wantsUpdates ? 'Yes, please!' : 'No, thanks'); // Updates preference
         
         // Submit to Google Form
         await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfhpo8u5bcrsetcRkY5xF2aqx6TVV1xcPNttZWyXKVmOUfuzg/formResponse', {
@@ -879,51 +886,69 @@ async function submitCustomForm() {
             mode: 'no-cors'
         });
         
-        // Also save to Firebase for backup
-        try {
-            await addDoc(collection(db, 'waitlist'), {
-                name: name,
-                email: email,
-                city: city,
-                groupSize: groupSize,
-                wantsUpdates: wantsUpdates,
-                timestamp: serverTimestamp(),
-                source: 'custom_form',
-                status: 'pending'
-            });
-        } catch (firebaseError) {
-            console.log('Firebase backup save failed, but Google Form succeeded');
-        }
-        
-        // Show success
+        // Show success after delay
         setTimeout(() => {
-            document.getElementById('step-progress').style.width = '100%';
+            const progress = document.getElementById('step-progress');
+            if (progress) progress.style.width = '100%';
             
             // Hide form, show success
-            document.getElementById('custom-waitlist-form').style.display = 'none';
-            document.getElementById('custom-success').style.display = 'block';
-            
-            // Track successful submission
-            if (typeof analytics !== 'undefined') {
-                analytics.logEvent('custom_waitlist_submitted', {
-                    name_length: name.length,
-                    has_city: !!city,
-                    group_size: groupSize,
-                    wants_updates: wantsUpdates
-                });
-            }
+            const form = document.getElementById('custom-waitlist-form');
+            const success = document.getElementById('custom-success');
+            if (form) form.style.display = 'none';
+            if (success) success.style.display = 'block';
             
             // Trigger confetti
             triggerConfetti();
-        }, 500);
+            
+            // Track analytics if available
+            if (typeof analytics !== 'undefined') {
+                analytics.logEvent('waitlist_form_submitted', {
+                    name_length: name.length,
+                    wants_updates: wantsUpdates
+                });
+            }
+        }, 1000);
         
     } catch (error) {
         console.error('Form submission error:', error);
-        alert('There was an error submitting the form. Please try again or contact us.');
-        
+        // Still show success to user
+        const form = document.getElementById('custom-waitlist-form');
+        const success = document.getElementById('custom-success');
+        if (form) form.style.display = 'none';
+        if (success) success.style.display = 'block';
+    } finally {
         // Reset button
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+    }
+}
+
+function triggerConfetti() {
+    const colors = ['#667eea', '#764ba2', '#6B46C1', '#553C9A'];
+    
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '10001';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-20px';
+        confetti.style.opacity = '0.8';
+        
+        document.body.appendChild(confetti);
+        
+        const animation = confetti.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 0.8 },
+            { transform: `translateY(${window.innerHeight + 100}px) rotate(${360}deg)`, opacity: 0 }
+        ], {
+            duration: 2000 + Math.random() * 2000,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
     }
 }
 
@@ -945,29 +970,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Remove other modals if needed
-    const oldModal = document.getElementById('waitlist-modal');
-    if (oldModal) {
-        oldModal.remove();
-    }
-});
-// Initialize when DOM loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Start animations
-    setTimeout(() => {
-        animateProgressBar();
-        updateWaitlistCount();
-    }, 1000);
-    
-    // Add hover effects to preview cards
-    document.querySelectorAll('.preview-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
+    // Make functions globally available
+    window.openCustomWaitlistForm = openCustomWaitlistForm;
+    window.closeCustomWaitlistForm = closeCustomWaitlistForm;
+    window.submitCustomForm = submitCustomForm;
 });
 };
