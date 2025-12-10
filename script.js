@@ -843,8 +843,28 @@ async function submitMinimalWaitlist() {
     }
     
     try {
+        // SAVE TO FIREBASE - THIS IS THE REAL CODE
+        console.log('Saving to Firebase...');
+        
+        // Import Firebase inside the function
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js");
+        const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js");
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAOwk37TCbc_loEb-LFXLK3qWQBdOaaqlU",
+            authDomain: "meeto-website.firebaseapp.com",
+            projectId: "meeto-website",
+            storageBucket: "meeto-website.firebasestorage.app",
+            messagingSenderId: "950489624932",
+            appId: "1:950489624932:web:65f005771901f763e64a71",
+            measurementId: "G-TVM3G555P5"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
         // Save to Firebase
-        await addDoc(collection(db, 'waitlist'), {
+        const docRef = await addDoc(collection(db, 'waitlist'), {
             name: name,
             email: email,
             timestamp: serverTimestamp(),
@@ -852,25 +872,27 @@ async function submitMinimalWaitlist() {
             notified: false
         });
         
-        console.log('Waitlist entry saved to Firebase');
+        console.log('SUCCESS: Document written with ID: ', docRef.id);
         
-        // Show success message after a short delay
-        setTimeout(() => {
-            const form = document.getElementById('minimalWaitlistForm');
-            const success = document.getElementById('waitlistSuccess');
-            
-            if (form) form.style.display = 'none';
-            if (success) success.style.display = 'block';
-            
-            // Trigger confetti
-            triggerWaitlistConfetti();
-        }, 500);
+        // Show success message
+        const form = document.getElementById('minimalWaitlistForm');
+        const success = document.getElementById('waitlistSuccess');
+        
+        if (form) form.style.display = 'none';
+        if (success) success.style.display = 'block';
+        
+        // Simple confetti
+        triggerSimpleConfetti();
         
     } catch (error) {
         console.error('Error saving to waitlist:', error);
-        alert('There was an error. Please try again.');
+        alert('Error saving. Please try again. Error: ' + error.message);
     } finally {
         // Reset button state
+        const submitBtn = document.getElementById('submitWaitlistBtn');
+        const btnText = submitBtn?.querySelector('.btn-text');
+        const btnLoading = submitBtn?.querySelector('.btn-loading');
+        
         if (btnText && btnLoading) {
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
@@ -927,11 +949,10 @@ function viewWaitlistDashboard() {
 function setupWaitlistForm() {
 const form = document.getElementById('minimalWaitlistForm');
 if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Call the REAL Firebase function from script.js
-        window.submitMinimalWaitlist();
-    });
+   form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitMinimalWaitlist();
+});
 }
     
     // Update existing "Join Waitlist" button to use new modal
