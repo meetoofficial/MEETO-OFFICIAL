@@ -925,13 +925,14 @@ function viewWaitlistDashboard() {
 
 // Setup form submission
 function setupWaitlistForm() {
-    const form = document.getElementById('minimalWaitlistForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitMinimalWaitlist();
-        });
-    }
+const form = document.getElementById('minimalWaitlistForm');
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Call the REAL Firebase function from script.js
+        window.submitMinimalWaitlist();
+    });
+}
     
     // Update existing "Join Waitlist" button to use new modal
     const joinWaitlistBtn = document.getElementById('join-waitlist-btn');
