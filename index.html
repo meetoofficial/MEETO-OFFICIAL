@@ -498,7 +498,171 @@
         </div>
     </div>
 </div>
+<script>
+// Simple Waitlist Functions
+function openMinimalWaitlist() {
+    console.log('Opening waitlist modal...');
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        const form = document.getElementById('minimalWaitlistForm');
+        const success = document.getElementById('waitlistSuccess');
+        if (form) {
+            form.reset();
+            form.style.display = 'block';
+        }
+        if (success) success.style.display = 'none';
+    }
+}
 
+function closeMinimalWaitlist() {
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function submitMinimalWaitlist() {
+    const name = document.getElementById('waitlistName').value.trim();
+    const email = document.getElementById('waitlistEmail').value.trim();
+    
+    // Validation
+    if (!name) {
+        alert('Please enter your name');
+        return false;
+    }
+    
+    if (!email) {
+        alert('Please enter your email');
+        return false;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return false;
+    }
+    
+    // Show loading state
+    const submitBtn = document.getElementById('submitWaitlistBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    if (btnText && btnLoading) {
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline';
+        submitBtn.disabled = true;
+    }
+    
+    // Simulate saving (replace with Firebase later)
+    setTimeout(() => {
+        console.log('Saving to waitlist:', { name, email });
+        
+        // Show success message
+        const form = document.getElementById('minimalWaitlistForm');
+        const success = document.getElementById('waitlistSuccess');
+        
+        if (form) form.style.display = 'none';
+        if (success) success.style.display = 'block';
+        
+        // Reset button state
+        if (btnText && btnLoading) {
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+        
+        // Simple confetti effect
+        triggerSimpleConfetti();
+        
+    }, 1500);
+    
+    return false;
+}
+
+function triggerSimpleConfetti() {
+    const colors = ['#667eea', '#764ba2', '#6B46C1'];
+    
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '8px';
+            confetti.style.height = '8px';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.zIndex = '10001';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight + 50}px) rotate(${360}deg)`, opacity: 0 }
+            ], {
+                duration: 1500 + Math.random() * 1000,
+                easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }, i * 100);
+    }
+}
+
+function viewWaitlistDashboard() {
+    closeMinimalWaitlist();
+    alert('Admin dashboard coming soon! You can view waitlist data in Firebase Console.');
+}
+
+// Setup form submission when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Setting up waitlist form...');
+    
+    // Setup form submission
+    const form = document.getElementById('minimalWaitlistForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitMinimalWaitlist();
+        });
+    }
+    
+    // Close modal on outside click
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMinimalWaitlist();
+            }
+        });
+    }
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('minimalWaitlistModal');
+            if (modal && modal.style.display === 'flex') {
+                closeMinimalWaitlist();
+            }
+        }
+    });
+    
+    // Check if functions are available
+    console.log('openMinimalWaitlist function available:', typeof openMinimalWaitlist);
+});
+
+// Make functions globally available
+window.openMinimalWaitlist = openMinimalWaitlist;
+window.closeMinimalWaitlist = closeMinimalWaitlist;
+window.submitMinimalWaitlist = submitMinimalWaitlist;
+window.viewWaitlistDashboard = viewWaitlistDashboard;
+</script>
 <!-- Minimalist Waitlist Modal -->
 <div id="minimalWaitlistModal" class="minimal-waitlist-modal">
     <div class="minimal-waitlist-content">
@@ -551,5 +715,8 @@
 </div>
 </div>
 </div>
+
+
+    
 </body>
 </html>
