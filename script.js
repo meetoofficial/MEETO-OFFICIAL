@@ -803,6 +803,154 @@ function updateWaitlistCount() {
     }
 }
 
+// Custom Form Functions
+function openCustomWaitlistForm() {
+    const modal = document.getElementById('custom-waitlist-modal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // Reset form
+    document.getElementById('custom-waitlist-form').reset();
+    document.getElementById('custom-success').style.display = 'none';
+    document.getElementById('custom-waitlist-form').style.display = 'block';
+    
+    // Animate progress bar
+    setTimeout(() => {
+        document.getElementById('step-progress').style.width = '33%';
+    }, 300);
+    
+    // Track analytics
+    if (typeof analytics !== 'undefined') {
+        analytics.logEvent('custom_waitlist_opened');
+    }
+}
+
+function closeCustomWaitlistForm() {
+    const modal = document.getElementById('custom-waitlist-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // Reset progress
+    document.getElementById('step-progress').style.width = '0%';
+}
+
+async function submitCustomForm() {
+    const name = document.getElementById('custom-name').value.trim();
+    const email = document.getElementById('custom-email').value.trim();
+    const city = document.getElementById('custom-city').value.trim();
+    const groupSize = document.getElementById('custom-group-size').value;
+    const wantsUpdates = document.getElementById('custom-updates').checked;
+    
+    // Validation
+    if (!name) {
+        alert('Please enter your name');
+        return;
+    }
+    
+    if (!email) {
+        alert('Please enter your email');
+        return;
+    }
+    
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Show loading state
+    const submitBtn = document.querySelector('#custom-waitlist-modal button[onclick="submitCustomForm()"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Send to Google Sheets using your form
+        const formData = new FormData();
+        formData.append('entry.143646856', name); // Name field
+        formData.append('entry.2009322627', email); // Email field
+        formData.append('entry.1294183492', city || 'Not specified'); // City field
+        formData.append('entry.202061368', groupSize || 'Not specified'); // Group size
+        formData.append('entry.1369062021', wantsUpdates ? 'Yes' : 'No'); // Updates preference
+        
+        // Submit to Google Form
+        await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfhpo8u5bcrsetcRkY5xF2aqx6TVV1xcPNttZWyXKVmOUfuzg/formResponse', {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        });
+        
+        // Also save to Firebase for backup
+        try {
+            await addDoc(collection(db, 'waitlist'), {
+                name: name,
+                email: email,
+                city: city,
+                groupSize: groupSize,
+                wantsUpdates: wantsUpdates,
+                timestamp: serverTimestamp(),
+                source: 'custom_form',
+                status: 'pending'
+            });
+        } catch (firebaseError) {
+            console.log('Firebase backup save failed, but Google Form succeeded');
+        }
+        
+        // Show success
+        setTimeout(() => {
+            document.getElementById('step-progress').style.width = '100%';
+            
+            // Hide form, show success
+            document.getElementById('custom-waitlist-form').style.display = 'none';
+            document.getElementById('custom-success').style.display = 'block';
+            
+            // Track successful submission
+            if (typeof analytics !== 'undefined') {
+                analytics.logEvent('custom_waitlist_submitted', {
+                    name_length: name.length,
+                    has_city: !!city,
+                    group_size: groupSize,
+                    wants_updates: wantsUpdates
+                });
+            }
+            
+            // Trigger confetti
+            triggerConfetti();
+        }, 500);
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        alert('There was an error submitting the form. Please try again or contact us.');
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Initialize modal close on outside click
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('custom-waitlist-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCustomWaitlistForm();
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeCustomWaitlistForm();
+            }
+        });
+    }
+    
+    // Remove other modals if needed
+    const oldModal = document.getElementById('waitlist-modal');
+    if (oldModal) {
+        oldModal.remove();
+    }
+});
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', function() {
     // Start animations
