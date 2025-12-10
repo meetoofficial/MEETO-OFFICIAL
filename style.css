@@ -1676,3 +1676,136 @@ html {
         max-width: 100%;
     }
 }
+
+
+/* Minimalist Card Styles */
+.story-interactive-card {
+    width: 320px;
+    height: 380px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.story-interactive-card .card-front,
+.story-interactive-card .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.6s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.story-interactive-card .card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #f8f9ff, #ffffff);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.story-interactive-card.flipped .card-front {
+    transform: rotateY(180deg);
+}
+
+.story-interactive-card.flipped .card-back {
+    transform: rotateY(0);
+}
+
+/* Minimalist card front styling */
+.card-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    color: #667eea;
+    font-size: 24px;
+}
+
+.card-text {
+    color: #666;
+    line-height: 1.6;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.card-author {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    color: #667eea;
+}
+
+/* Back of card styling */
+.cta-content h3 {
+    color: #333;
+    margin: 15px 0 10px;
+}
+
+.cta-content p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Modal input focus states */
+#custom-name:focus,
+#custom-email:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Submit button hover effect */
+#custom-waitlist-modal button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .story-interactive-card {
+        width: 100%;
+        max-width: 320px;
+        height: 350px;
+    }
+    
+    .stories-cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
