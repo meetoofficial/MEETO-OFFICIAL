@@ -252,10 +252,10 @@
                     </div>
                 </div>
                 
-                <button class="compact-btn" onclick="openCustomWaitlistForm()">
-                    <i class="fas fa-user-plus"></i>
-                    Reserve Your Spot
-                </button>
+                <button class="compact-btn" onclick="openMinimalWaitlist()">
+    <i class="fas fa-user-plus"></i>
+    Reserve Your Spot
+</button>
                 
                 <!-- Progress Indicator -->
                 <div class="compact-progress">
@@ -366,7 +366,7 @@
                 <!-- Updated: Buttons in same row with proper spacing -->
                 <div class="cta-actions" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
 
-                    <a href="#waitlist" class="btn btn-primary btn-xl" id="join-waitlist-btn">
+                  <a href="#" class="btn btn-primary btn-xl" id="join-waitlist-btn" onclick="openMinimalWaitlist(); return false;">
     <i class="fas fa-user-plus"></i> Join Waitlist
 </a>
                     <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
