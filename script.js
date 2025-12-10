@@ -976,3 +976,235 @@ document.addEventListener('DOMContentLoaded', function() {
     window.submitCustomForm = submitCustomForm;
 });
 };
+
+// Custom Waitlist Form Functions
+function openCustomWaitlistForm() {
+    const modal = document.getElementById('custom-waitlist-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        const form = document.getElementById('custom-waitlist-form');
+        const success = document.getElementById('custom-success');
+        if (form) {
+            form.reset();
+            form.style.display = 'block';
+        }
+        if (success) success.style.display = 'none';
+        
+        // Animate progress bar
+        setTimeout(() => {
+            const progress = document.getElementById('step-progress');
+            if (progress) progress.style.width = '33%';
+        }, 300);
+    }
+}
+
+function closeCustomWaitlistForm() {
+    const modal = document.getElementById('custom-waitlist-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Reset progress
+        const progress = document.getElementById('step-progress');
+        if (progress) progress.style.width = '0%';
+    }
+}
+
+// Submit form to Google Sheets
+async function submitCustomForm() {
+    const name = document.getElementById('custom-name')?.value.trim();
+    const email = document.getElementById('custom-email')?.value.trim();
+    const wantsUpdates = document.getElementById('custom-updates')?.checked;
+    
+    // Validation
+    if (!name) {
+        alert('Please enter your name');
+        return;
+    }
+    
+    if (!email) {
+        alert('Please enter your email');
+        return;
+    }
+    
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Show loading state
+    const submitBtn = document.querySelector('#custom-waitlist-form button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Submit to Google Sheets via Google Form
+        const formData = new FormData();
+        formData.append('entry.1138680293', name); // Name field
+        formData.append('entry.1897401214', email); // Email field
+        formData.append('entry.1331061618', wantsUpdates ? 'Yes, please!' : 'No, thanks'); // Updates preference
+        
+        // Submit to Google Form (no-cors mode for cross-origin)
+        await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfhpo8u5bcrsetcRkY5xF2aqx6TVV1xcPNttZWyXKVmOUfuzg/formResponse', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        });
+        
+        // Show success message
+        setTimeout(() => {
+            const progress = document.getElementById('step-progress');
+            if (progress) progress.style.width = '100%';
+            
+            // Hide form, show success
+            const form = document.getElementById('custom-waitlist-form');
+            const success = document.getElementById('custom-success');
+            if (form) form.style.display = 'none';
+            if (success) success.style.display = 'block';
+            
+            // Trigger confetti effect
+            triggerConfetti();
+        }, 1000);
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        // Still show success to user (the form usually works even with no-cors)
+        const form = document.getElementById('custom-waitlist-form');
+        const success = document.getElementById('custom-success');
+        if (form) form.style.display = 'none';
+        if (success) success.style.display = 'block';
+    } finally {
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Email validation
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Confetti effect
+function triggerConfetti() {
+    const colors = ['#667eea', '#764ba2', '#6B46C1', '#553C9A'];
+    
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '10001';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-20px';
+        confetti.style.opacity = '0.8';
+        
+        document.body.appendChild(confetti);
+        
+        const animation = confetti.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 0.8 },
+            { transform: `translateY(${window.innerHeight + 100}px) rotate(${360}deg)`, opacity: 0 }
+        ], {
+            duration: 2000 + Math.random() * 2000,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+    }
+}
+
+// Card flip functionality
+function setupCardFlips() {
+    const cards = document.querySelectorAll('.story-interactive-card');
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't flip if clicking on button inside back
+            if (e.target.closest('button')) return;
+            
+            this.classList.toggle('flipped');
+        });
+    });
+}
+
+// Setup email links
+function setupEmailLinks() {
+    // Help Center -> opens email to meetoassist@gmail.com
+    const helpCenterLink = document.getElementById('helpCenter');
+    if (helpCenterLink) {
+        helpCenterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const subject = encodeURIComponent("MEETO Help Center Support Request");
+            const body = encodeURIComponent("Hello MEETO Support Team,\n\nI need help with:\n\n[Please describe your issue here]\n\nThank you!");
+            window.location.href = `mailto:meetoassist@gmail.com?subject=${subject}&body=${body}`;
+        });
+    }
+    
+    // Contact Us -> opens email to meeto.official@gmail.com
+    const contactUsLink = document.getElementById('contactUs');
+    if (contactUsLink) {
+        contactUsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const subject = encodeURIComponent("MEETO Contact Inquiry");
+            const body = encodeURIComponent("Hello MEETO Team,\n\nI'd like to get in touch about:\n\n[Please describe your inquiry here]\n\nBest regards,");
+            window.location.href = `mailto:meeto.official@gmail.com?subject=${subject}&body=${body}`;
+        });
+    }
+}
+
+// Initialize everything when DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Your existing initialization code...
+    
+    // Add these new initializations:
+    setupCardFlips();
+    setupEmailLinks();
+    
+    // Make sure the "Reserve Your Spot" buttons open the waitlist form
+    document.querySelectorAll('.btn-primary, .btn-outline').forEach(button => {
+        if (button.textContent.includes('Reserve') || button.textContent.includes('Notify')) {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openCustomWaitlistForm();
+            });
+        }
+    });
+    
+    // Also handle the "Join Waitlist" button in CTA section
+    const joinWaitlistBtn = document.querySelector('a[href="#waitlist"]');
+    if (joinWaitlistBtn) {
+        joinWaitlistBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openCustomWaitlistForm();
+        });
+    }
+    
+    // Setup modal close on outside click
+    const modal = document.getElementById('custom-waitlist-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCustomWaitlistForm();
+            }
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeCustomWaitlistForm();
+            }
+        });
+    }
+});
+
+// Make functions globally available
+window.openCustomWaitlistForm = openCustomWaitlistForm;
+window.closeCustomWaitlistForm = closeCustomWaitlistForm;
+window.submitCustomForm = submitCustomForm;
