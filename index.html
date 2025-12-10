@@ -226,89 +226,93 @@
                 
         </div>
     </section>
-<!-- Users Stories Section -->
-<section class="testimonials" id="testimonials">
+<!-- Users Stories Section - Minimalistic Design -->
+<section class="users-stories" id="testimonials">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title">Users Stories</h2>
-            <p class="section-subtitle">Be the first to share your experience</p>
+            <h2 class="section-title">User Stories</h2>
+            <p class="section-subtitle">Real experiences from our early community</p>
         </div>
         
-        <!-- Two Centered Cards -->
-        <div class="stories-cards-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 60px 0;">
-            <!-- Card 1 -->
-            <div class="story-interactive-card" onclick="openCustomWaitlistForm()">
-                <div class="card-front">
-                    <div class="card-badge" style="background: linear-gradient(135deg, var(--primary), #764ba2);">
-                        <span>Preview</span>
-                    </div>
-                    <div class="card-icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <h3>Your Story Here</h3>
-                    <p class="card-text">
-                        "This could be your story! Join our waitlist and be among the first to experience MEETO."
-                    </p>
-                    <div class="card-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <h4>Future MEETO User</h4>
-                            <p>Your City</p>
-                        </div>
+        <!-- Minimalistic Cards Container -->
+        <div class="minimal-cards-container">
+            <!-- Card 1: Call to Action -->
+            <div class="minimal-card cta-card">
+                <div class="card-illustration">
+                    <div class="icon-circle">
+                        <i class="fas fa-sparkles"></i>
                     </div>
                 </div>
-                <div class="card-back">
-                    <div class="cta-content">
-                        <i class="fas fa-rocket" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
-                        <h3>Share Your Story</h3>
-                        <p>Join now and be the first to share your experience</p>
-                        <button class="btn btn-primary" onclick="event.stopPropagation(); openCustomWaitlistForm();">
-    <i class="fas fa-pen-alt"></i> Reserve Your Spot
-</button>
+                <div class="card-content">
+                    <span class="card-label">Be the First</span>
+                    <h3>Your Story Awaits</h3>
+                    <p class="card-description">
+                        Join our exclusive waitlist and become one of the first to experience MEETO. 
+                        Your adventure could be featured here.
+                    </p>
+                    <div class="card-footer">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="user-info">
+                            <h4>Future MEETO Explorer</h4>
+                            <p>Your City • Coming Soon</p>
+                        </div>
                     </div>
+                    <button class="card-button" onclick="openCustomWaitlistForm()">
+                        <i class="fas fa-user-plus"></i>
+                        Reserve Your Spot
+                    </button>
                 </div>
             </div>
             
-            <!-- Card 2 -->
-            <div class="story-interactive-card" onclick="openCustomWaitlistForm()">
-                <div class="card-front">
-                    <div class="card-badge" style="background: linear-gradient(135deg, #4CAF50, #45a049);">
-                        <span>Coming Soon</span>
+            <!-- Card 2: Coming Soon -->
+            <div class="minimal-card preview-card">
+                <div class="card-illustration">
+                    <div class="icon-circle">
+                        <i class="fas fa-comment-alt"></i>
                     </div>
-                    <div class="card-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
+                </div>
+                <div class="card-content">
+                    <span class="card-label">Launching Soon</span>
                     <h3>Community Stories</h3>
-                    <p class="card-text">
-                        "Real experiences from our community will appear here soon. Be the first to share!"
+                    <p class="card-description">
+                        Real stories from travelers like you. Discover how MEETO transformed 
+                        planning and created meaningful connections worldwide.
                     </p>
-                    <div class="card-author">
-                        <div class="author-avatar">
+                    <div class="coming-soon-badge">
+                        <i class="fas fa-clock"></i>
+                        Stories Loading...
+                    </div>
+                    <div class="card-footer">
+                        <div class="user-avatar">
                             <i class="fas fa-users"></i>
                         </div>
-                        <div>
-                            <h4>Worldwide Community</h4>
-                            <p>Launching Soon</p>
+                        <div class="user-info">
+                            <h4>Global Community</h4>
+                            <p>Connecting Worldwide</p>
                         </div>
                     </div>
+                    <button class="card-button secondary" onclick="openCustomWaitlistForm()">
+                        <i class="fas fa-bell"></i>
+                        Get Notified at Launch
+                    </button>
                 </div>
-                <div class="card-back">
-                    <div class="cta-content">
-                        <i class="fas fa-bell" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
-                        <h3>Get Notified</h3>
-                        <p>Be first to share when we launch</p>
-                       <button class="btn btn-outline" onclick="event.stopPropagation(); openCustomWaitlistForm();">
-    <i class="fas fa-bell"></i> Notify Me
-</button>
-                    </div>
-                </div>
+            </div>
+        </div>
+        
+        <!-- Progress Indicator -->
+        <div class="stories-progress">
+            <div class="progress-text">
+                <i class="fas fa-rocket"></i>
+                <span>Community stories will appear here as we launch</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
         </div>
     </div>
 </section>
-
 <!-- Team -->
 <section class="team" id="team">
     <div class="container">
