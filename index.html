@@ -627,10 +627,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup form submission
     const form = document.getElementById('minimalWaitlistForm');
     if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitMinimalWaitlist();
-        });
+       form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Force it to use the script.js version
+    window.submitMinimalWaitlist();
+});
     }
     
     // Close modal on outside click
