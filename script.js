@@ -777,3 +777,191 @@ document.addEventListener('DOMContentLoaded', () => {
 window.openCustomWaitlistForm = openCustomWaitlistForm;
 window.closeCustomWaitlistForm = closeCustomWaitlistForm;
 window.submitCustomForm = submitCustomForm;
+
+
+
+    // Minimalist Waitlist Functions
+function openMinimalWaitlist() {
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        const form = document.getElementById('minimalWaitlistForm');
+        const success = document.getElementById('waitlistSuccess');
+        if (form) {
+            form.reset();
+            form.style.display = 'block';
+        }
+        if (success) success.style.display = 'none';
+    }
+}
+
+function closeMinimalWaitlist() {
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+async function submitMinimalWaitlist() {
+    const name = document.getElementById('waitlistName').value.trim();
+    const email = document.getElementById('waitlistEmail').value.trim();
+    
+    // Validation
+    if (!name) {
+        alert('Please enter your name');
+        return false;
+    }
+    
+    if (!email) {
+        alert('Please enter your email');
+        return false;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return false;
+    }
+    
+    // Show loading state
+    const submitBtn = document.getElementById('submitWaitlistBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    if (btnText && btnLoading) {
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline';
+        submitBtn.disabled = true;
+    }
+    
+    try {
+        // Save to Firebase
+        await addDoc(collection(db, 'waitlist'), {
+            name: name,
+            email: email,
+            timestamp: serverTimestamp(),
+            source: 'website',
+            notified: false
+        });
+        
+        console.log('Waitlist entry saved to Firebase');
+        
+        // Show success message after a short delay
+        setTimeout(() => {
+            const form = document.getElementById('minimalWaitlistForm');
+            const success = document.getElementById('waitlistSuccess');
+            
+            if (form) form.style.display = 'none';
+            if (success) success.style.display = 'block';
+            
+            // Trigger confetti
+            triggerWaitlistConfetti();
+        }, 500);
+        
+    } catch (error) {
+        console.error('Error saving to waitlist:', error);
+        alert('There was an error. Please try again.');
+    } finally {
+        // Reset button state
+        if (btnText && btnLoading) {
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+    }
+    
+    return false;
+}
+
+function triggerWaitlistConfetti() {
+    // Simple confetti effect
+    const colors = ['#667eea', '#764ba2', '#6B46C1'];
+    
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '8px';
+            confetti.style.height = '8px';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.zIndex = '10001';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.opacity = '0.8';
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.8 },
+                { transform: `translateY(${window.innerHeight + 50}px) rotate(${360}deg)`, opacity: 0 }
+            ], {
+                duration: 1500 + Math.random() * 1000,
+                easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }, i * 100);
+    }
+}
+
+function viewWaitlistDashboard() {
+    // This would open an admin panel to view waitlist members
+    // For now, let's just show a message
+    closeMinimalWaitlist();
+    alert('Admin dashboard coming soon! Currently collecting waitlist data in Firebase.');
+    
+    // You could implement this later:
+    // window.open('/admin/waitlist-dashboard.html', '_blank');
+}
+
+// Setup form submission
+function setupWaitlistForm() {
+    const form = document.getElementById('minimalWaitlistForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitMinimalWaitlist();
+        });
+    }
+    
+    // Update existing "Join Waitlist" button to use new modal
+    const joinWaitlistBtn = document.getElementById('join-waitlist-btn');
+    if (joinWaitlistBtn) {
+        joinWaitlistBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openMinimalWaitlist();
+        });
+    }
+    
+    // Close modal on outside click
+    const modal = document.getElementById('minimalWaitlistModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMinimalWaitlist();
+            }
+        });
+    }
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('minimalWaitlistModal');
+            if (modal && modal.style.display === 'flex') {
+                closeMinimalWaitlist();
+            }
+        }
+    });
+}
+
+// Make functions globally available
+window.openMinimalWaitlist = openMinimalWaitlist;
+window.closeMinimalWaitlist = closeMinimalWaitlist;
+window.submitMinimalWaitlist = submitMinimalWaitlist;
+window.viewWaitlistDashboard = viewWaitlistDashboard;
