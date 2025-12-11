@@ -667,7 +667,39 @@ form.addEventListener('submit', function(e) {
     submitMinimalWaitlist();
 });
     }
+    <script>
+// FAQ Functions
+function openQuestions() {
+    const modal = document.getElementById('questions-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeQuestions() {
+    const modal = document.getElementById('questions-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function toggleFaq(element) {
+    const answer = element.querySelector('.faq-answer');
+    const icon = element.querySelector('span');
     
+    if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        icon.textContent = '+';
+    } else {
+        answer.style.display = 'block';
+        icon.textContent = '−';
+    }
+}
+
+// ... rest of your JavaScript (waitlist functions) ...
+</script>
     // Close modal on outside click
     const modal = document.getElementById('minimalWaitlistModal');
     if (modal) {
