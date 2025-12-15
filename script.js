@@ -968,6 +968,69 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// VIDEO PLAY FUNCTIONALITY
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Setting up video player...');
+    
+    const videoPlaceholder = document.getElementById('videoPlaceholder');
+    const demoVideo = document.getElementById('demoVideo');
+    
+    if (videoPlaceholder && demoVideo) {
+        console.log('Video elements found!');
+        
+        // When user clicks the placeholder
+        videoPlaceholder.addEventListener('click', function() {
+            console.log('Play button clicked!');
+            
+            // Hide the placeholder
+            this.style.display = 'none';
+            
+            // Show the video
+            demoVideo.style.display = 'block';
+            
+            // Try to play the video
+            demoVideo.play().then(() => {
+                console.log('Video playing successfully!');
+            }).catch(error => {
+                console.log('Autoplay failed:', error);
+                // If autoplay fails, show controls
+                demoVideo.controls = true;
+                // Add a message
+                const message = document.createElement('div');
+                message.innerHTML = '<p style="color: white; text-align: center; margin-top: 10px;">Click the play button above</p>';
+                message.id = 'videoMessage';
+                demoVideo.parentNode.appendChild(message);
+            });
+        });
+        
+        // When video ends, show placeholder again
+        demoVideo.addEventListener('ended', function() {
+            console.log('Video ended');
+            videoPlaceholder.style.display = 'flex';
+            this.style.display = 'none';
+            
+            // Remove any message
+            const message = document.getElementById('videoMessage');
+            if (message) message.remove();
+        });
+        
+        // Optional: If user pauses, you could show a custom play button
+        demoVideo.addEventListener('pause', function() {
+            console.log('Video paused');
+        });
+        
+        // Optional: If user plays, ensure placeholder stays hidden
+        demoVideo.addEventListener('play', function() {
+            console.log('Video playing');
+            videoPlaceholder.style.display = 'none';
+        });
+        
+    } else {
+        console.log('Video elements not found:');
+        if (!videoPlaceholder) console.log('- videoPlaceholder missing');
+        if (!demoVideo) console.log('- demoVideo missing');
+    }
+});
 function viewWaitlistDashboard() {
     // This would open an admin panel to view waitlist members
     // For now, let's just show a message
