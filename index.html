@@ -1079,5 +1079,21 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
+    // Add this script to handle the feedback button click
+document.addEventListener('DOMContentLoaded', function() {
+    const feedbackBtn = document.getElementById('share-feedback-btn');
+    if (feedbackBtn) {
+        feedbackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Check if function exists
+            if (typeof openFeedbackModal === 'function') {
+                openFeedbackModal();
+            } else {
+                console.error('openFeedbackModal function not found');
+                alert('Feedback feature loading... Please try again.');
+            }
+        });
+    }
+});
 </body>
 </html>
