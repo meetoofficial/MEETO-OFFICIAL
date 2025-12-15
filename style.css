@@ -3700,3 +3700,25 @@ document.getElementById('muteBtn').addEventListener('click', function() {
 });
 </script>
 */
+
+/* HIDE DOWNLOAD BUTTON IN VIDEO CONTROLS */
+video::-webkit-media-controls {
+    position: relative;
+}
+
+video::-webkit-media-controls-download-button {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+/* Also hide from context menu */
+video {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+}
