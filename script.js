@@ -934,7 +934,40 @@ function triggerWaitlistConfetti() {
         }, i * 100);
     }
 }
-
+// Video Play Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const videoPlaceholder = document.getElementById('videoPlaceholder');
+    const demoVideo = document.getElementById('demoVideo');
+    
+    if (videoPlaceholder && demoVideo) {
+        // When clicking the placeholder
+        videoPlaceholder.addEventListener('click', function() {
+            // Hide the placeholder
+            this.style.display = 'none';
+            
+            // Show the video player
+            demoVideo.style.display = 'block';
+            
+            // Start playing the video
+            demoVideo.play().catch(function(error) {
+                console.log('Video play failed:', error);
+                // If autoplay fails, show controls and let user click play
+                demoVideo.controls = true;
+            });
+        });
+        
+        // Optional: Show placeholder again when video ends
+        demoVideo.addEventListener('ended', function() {
+            videoPlaceholder.style.display = 'flex';
+            this.style.display = 'none';
+        });
+        
+        // Optional: Pause handling
+        demoVideo.addEventListener('pause', function() {
+            // You could add a custom pause overlay if needed
+        });
+    }
+});
 function viewWaitlistDashboard() {
     // This would open an admin panel to view waitlist members
     // For now, let's just show a message
