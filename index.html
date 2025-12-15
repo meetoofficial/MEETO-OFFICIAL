@@ -204,29 +204,37 @@
         </div>
     </section>
 
-<!-- Demo Section -->
-<section class="demo-section" id="demo-video">
-    <div class="container">
-        <div class="demo-content">
-            <h2>Experience MEETO in Action</h2>
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <!-- Video element (hidden initially) -->
-                    <video id="demoVideo" controls style="display: none; width: 100%; border-radius: 12px;">
-                        <source src="https://i.imgur.com/uCEUpz4.mp4" type="video/mp4">
-                        Your browser does not support HTML5 video.
-                    </video>
-                    
-                    <!-- Placeholder that users click -->
-                    <div class="video-placeholder" id="videoPlaceholder" style="cursor: pointer;">
-                        <i class="fas fa-play"></i>
-                        <p>Watch Demo Video</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="video-wrapper" onclick="playVideoNow()" style="cursor: pointer;">
+    <div class="video-placeholder">
+        <i class="fas fa-play"></i>
+        <p>Watch Demo Video</p>
     </div>
-</section>
+</div>
+
+<script>
+function playVideoNow() {
+    const wrapper = document.querySelector('.video-wrapper');
+    wrapper.innerHTML = `
+        <video controls autoplay style="width:100%; height:450px; border-radius:16px;">
+            <source src="images/Demo video .mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <button onclick="resetVideo()" style="position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.7); color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer;">
+            Close
+        </button>
+    `;
+}
+
+function resetVideo() {
+    const wrapper = document.querySelector('.video-wrapper');
+    wrapper.innerHTML = `
+        <div class="video-placeholder" onclick="playVideoNow()" style="cursor:pointer;">
+            <i class="fas fa-play"></i>
+            <p>Watch Demo Video</p>
+        </div>
+    `;
+}
+</script>
 
     <!-- Compact User Stories Section -->
     <section class="compact-stories" id="testimonials">
