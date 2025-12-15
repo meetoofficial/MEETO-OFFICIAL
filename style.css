@@ -3259,12 +3259,11 @@ html {
 .video-wrapper {
     position: relative;
     width: 100%;
-    height: 500px; /* Fixed height */
+    height: 500px; /* FIXED HEIGHT - THIS SOLVES HALF SCREEN */
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 25px 50px -12px rgba(47, 1, 126, 0.25);
     background: #000;
-    border: 4px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Video Placeholder */
@@ -3306,7 +3305,7 @@ html {
 #demoVideo {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This ensures video fills container */
+    object-fit: cover; /* This fills the container */
 }
 
 /* Responsive */
@@ -3324,8 +3323,3 @@ html {
         font-size: 20px;
     }
 }
-
-
-
-
-
