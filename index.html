@@ -989,5 +989,106 @@ document.addEventListener('DOMContentLoaded', function() {
     window.closeQuestions = closeQuestions;
     window.toggleFaq = toggleFaq;
     </script>
+    <!-- Feedback Modal -->
+<div id="feedbackModal" class="feedback-modal">
+    <div class="feedback-modal-content">
+        <button class="close-feedback-modal" onclick="closeFeedbackModal()">×</button>
+        
+        <div class="feedback-header">
+            <div class="feedback-icon-circle">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h2>Share Your Feedback</h2>
+            <p>Help us improve MEETO for everyone</p>
+        </div>
+        
+        <form id="feedbackForm" class="feedback-form">
+            <!-- Category Selection -->
+            <div class="feedback-category">
+                <h4>What type of feedback?</h4>
+                <div class="category-options">
+                    <label class="category-option">
+                        <input type="radio" name="category" value="feature" checked>
+                        <div class="category-card">
+                            <i class="fas fa-lightbulb"></i>
+                            <h5>Feature Idea</h5>
+                            <p>Suggest new features</p>
+                        </div>
+                    </label>
+                    <label class="category-option">
+                        <input type="radio" name="category" value="improvement">
+                        <div class="category-card">
+                            <i class="fas fa-tools"></i>
+                            <h5>Improvement</h5>
+                            <p>Make something better</p>
+                        </div>
+                    </label>
+                    <label class="category-option">
+                        <input type="radio" name="category" value="bug">
+                        <div class="category-card">
+                            <i class="fas fa-bug"></i>
+                            <h5>Bug Report</h5>
+                            <p>Report an issue</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Rating -->
+            <div class="feedback-rating">
+                <h4>How would you rate your experience?</h4>
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" checked>
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">★</label>
+                </div>
+            </div>
+            
+            <!-- Feedback Details -->
+            <div class="form-group">
+                <label for="feedbackTitle">Brief Summary</label>
+                <input type="text" id="feedbackTitle" placeholder="What's this about?" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="feedbackDetails">Details</label>
+                <textarea id="feedbackDetails" placeholder="Please share more details..." rows="4" required></textarea>
+            </div>
+            
+            <!-- Optional Contact -->
+            <div class="optional-contact">
+                <label class="contact-toggle">
+                    <input type="checkbox" id="allowContact">
+                    <span class="toggle-slider"></span>
+                    <span>I'd like updates on this feedback</span>
+                </label>
+                <input type="email" id="feedbackEmail" placeholder="Your email (optional)" class="email-input" style="display: none;">
+            </div>
+            
+            <button type="submit" class="submit-feedback-btn">
+                <span class="btn-text">Submit Feedback</span>
+                <span class="btn-loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Sending...
+                </span>
+            </button>
+        </form>
+        
+        <div class="feedback-success" id="feedbackSuccess" style="display: none;">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Thank You!</h3>
+            <p>Your feedback has been submitted. We appreciate your help in improving MEETO.</p>
+            <button class="btn btn-primary" onclick="closeFeedbackModal()">Close</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
