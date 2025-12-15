@@ -1004,43 +1004,38 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Form -->
         <form id="feedbackForm" onsubmit="submitFeedback(event)">
             <!-- Message -->
-            <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 24px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333; font-size: 14px;">Your Feedback</label>
-                <textarea id="feedbackMessage" placeholder="What would you like to tell us?" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 100px; transition: 0.2s;" required></textarea>
+                <textarea id="feedbackMessage" placeholder="What would you like to tell us?" style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 120px; transition: all 0.2s;" onfocus="this.style.borderColor='#2f017e'; this.style.boxShadow='0 0 0 3px rgba(47, 1, 126, 0.1)'" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none'" required></textarea>
             </div>
             
-            <!-- Category -->
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333; font-size: 14px;">Category</label>
-                <div style="display: flex; gap: 10px;">
-                    <label style="flex: 1; border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; font-size: 13px; font-weight: 500;">
+            <!-- Category - Only 2 options -->
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; margin-bottom: 12px; font-weight: 500; color: #333; font-size: 14px;">Category</label>
+                <div style="display: flex; gap: 12px;">
+                    <label id="suggestionLabel" style="flex: 1; border: 2px solid #2f017e; border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; font-size: 14px; font-weight: 600; color: #2f017e; background: #f8f5ff; transition: all 0.2s;">
                         <input type="radio" name="type" value="suggestion" style="display: none;" checked>
                         Suggestion
                     </label>
                     
-                    <label style="flex: 1; border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; font-size: 13px; font-weight: 500;">
+                    <label id="bugLabel" style="flex: 1; border: 1px solid #e5e5e5; border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; font-size: 14px; font-weight: 500; color: #555; background: #f9f9f9; transition: all 0.2s;">
                         <input type="radio" name="type" value="bug" style="display: none;">
                         Bug Report
-                    </label>
-                    
-                    <label style="flex: 1; border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s; font-size: 13px; font-weight: 500;">
-                        <input type="radio" name="type" value="question" style="display: none;">
-                        Question
                     </label>
                 </div>
             </div>
             
             <!-- Email -->
-            <div style="margin-bottom: 24px;">
+            <div style="margin-bottom: 28px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333; font-size: 14px;">Email (Optional)</label>
-                <input type="email" id="feedbackEmail" placeholder="you@example.com" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                <input type="email" id="feedbackEmail" placeholder="you@example.com" style="width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; transition: all 0.2s;" onfocus="this.style.borderColor='#2f017e'; this.style.boxShadow='0 0 0 3px rgba(47, 1, 126, 0.1)'" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none'">
                 <p style="margin: 4px 0 0 0; font-size: 12px; color: #888;">Only used if we need to follow up</p>
             </div>
             
             <!-- Buttons -->
             <div style="display: flex; gap: 12px;">
-                <button type="button" onclick="closeFeedbackModal()" style="flex: 1; background: #f5f5f5; color: #666; border: none; padding: 12px; border-radius: 8px; font-weight: 500; font-size: 14px; cursor: pointer; transition: 0.2s;">Cancel</button>
-                <button type="submit" id="submitFeedbackBtn" style="flex: 1; background: #2f017e; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s;">Submit</button>
+                <button type="button" onclick="closeFeedbackModal()" style="flex: 1; background: #f5f5f5; color: #666; border: none; padding: 14px; border-radius: 8px; font-weight: 500; font-size: 14px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#e5e5e5'">Cancel</button>
+                <button type="submit" id="submitFeedbackBtn" style="flex: 1; background: #2f017e; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#3a0a9e'">Submit</button>
             </div>
         </form>
         
@@ -1071,6 +1066,9 @@ function openFeedbackModal() {
         document.getElementById('feedbackSuccess').style.display = 'none';
         document.getElementById('feedbackMessage').value = '';
         document.getElementById('feedbackEmail').value = '';
+        
+        // Setup category selection
+        setupCategorySelection();
     }
 }
 
@@ -1082,12 +1080,47 @@ function closeFeedbackModal() {
     }
 }
 
+function setupCategorySelection() {
+    const suggestionLabel = document.getElementById('suggestionLabel');
+    const bugLabel = document.getElementById('bugLabel');
+    
+    if (suggestionLabel && bugLabel) {
+        // Suggestion click
+        suggestionLabel.addEventListener('click', function() {
+            document.querySelector('input[value="suggestion"]').checked = true;
+            suggestionLabel.style.border = '2px solid #2f017e';
+            suggestionLabel.style.color = '#2f017e';
+            suggestionLabel.style.fontWeight = '600';
+            suggestionLabel.style.background = '#f8f5ff';
+            
+            bugLabel.style.border = '1px solid #e5e5e5';
+            bugLabel.style.color = '#555';
+            bugLabel.style.fontWeight = '500';
+            bugLabel.style.background = '#f9f9f9';
+        });
+        
+        // Bug click
+        bugLabel.addEventListener('click', function() {
+            document.querySelector('input[value="bug"]').checked = true;
+            bugLabel.style.border = '2px solid #2f017e';
+            bugLabel.style.color = '#2f017e';
+            bugLabel.style.fontWeight = '600';
+            bugLabel.style.background = '#f8f5ff';
+            
+            suggestionLabel.style.border = '1px solid #e5e5e5';
+            suggestionLabel.style.color = '#555';
+            suggestionLabel.style.fontWeight = '500';
+            suggestionLabel.style.background = '#f9f9f9';
+        });
+    }
+}
+
 async function submitFeedback(event) {
     event.preventDefault();
     
     const message = document.getElementById('feedbackMessage').value.trim();
     const email = document.getElementById('feedbackEmail').value.trim();
-    const type = document.querySelector('[name="type"]:checked').value;
+    const type = document.querySelector('input[name="type"]:checked').value;
     
     if (!message) {
         alert('Please enter your feedback');
