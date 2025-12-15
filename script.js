@@ -1086,3 +1086,167 @@ window.openMinimalWaitlist = openMinimalWaitlist;
 window.closeMinimalWaitlist = closeMinimalWaitlist;
 window.submitMinimalWaitlist = submitMinimalWaitlist;
 window.viewWaitlistDashboard = viewWaitlistDashboard;
+
+// Feedback Functions
+function openFeedbackModal() {
+    console.log('Opening feedback modal...');
+    const modal = document.getElementById('feedbackModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        const form = document.getElementById('feedbackForm');
+        const success = document.getElementById('feedbackSuccess');
+        if (form) {
+            form.reset();
+            form.style.display = 'block';
+            // Reset to default rating
+            document.getElementById('star3').checked = true;
+        }
+        if (success) success.style.display = 'none';
+        
+        // Setup email toggle
+        const contactToggle = document.getElementById('allowContact');
+        const emailInput = document.getElementById('feedbackEmail');
+        if (contactToggle && emailInput) {
+            contactToggle.addEventListener('change', function() {
+                emailInput.style.display = this.checked ? 'block' : 'none';
+                if (!this.checked) emailInput.value = '';
+            });
+        }
+    }
+}
+
+function closeFeedbackModal() {
+    const modal = document.getElementById('feedbackModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+async function submitFeedback() {
+    const title = document.getElementById('feedbackTitle').value.trim();
+    const details = document.getElementById('feedbackDetails').value.trim();
+    const category = document.querySelector('input[name="category"]:checked').value;
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const email = document.getElementById('feedbackEmail').value.trim();
+    
+    // Validation
+    if (!title) {
+        alert('Please enter a summary of your feedback');
+        return false;
+    }
+    
+    if (!details) {
+        alert('Please provide more details about your feedback');
+        return false;
+    }
+    
+    // Show loading
+    const submitBtn = document.querySelector('.submit-feedback-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    
+    if (btnText && btnLoading) {
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline';
+        submitBtn.disabled = true;
+    }
+    
+    try {
+        console.log('Saving feedback to Firebase...');
+        
+        // Import Firebase inside the function
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js");
+        const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js");
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAOwk37TCbc_loEb-LFXLK3qWQBdOaaqlU",
+            authDomain: "meeto-website.firebaseapp.com",
+            projectId: "meeto-website",
+            storageBucket: "meeto-website.firebasestorage.app",
+            messagingSenderId: "950489624932",
+            appId: "1:950489624932:web:65f005771901f763e64a71",
+            measurementId: "G-TVM3G555P5"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Save feedback to Firebase
+        const docRef = await addDoc(collection(db, 'feedback'), {
+            title: title,
+            details: details,
+            category: category,
+            rating: parseInt(rating),
+            email: email || null,
+            timestamp: serverTimestamp(),
+            source: 'website',
+            status: 'new',
+            reviewed: false
+        });
+        
+        console.log('SUCCESS: Feedback saved with ID: ', docRef.id);
+        
+        // Show success
+        const form = document.getElementById('feedbackForm');
+        const success = document.getElementById('feedbackSuccess');
+        
+        if (form) form.style.display = 'none';
+        if (success) success.style.display = 'block';
+        
+    } catch (error) {
+        console.error('Error saving feedback:', error);
+        alert('Error submitting feedback. Please try again.');
+        
+        // Reset button
+        if (btnText && btnLoading) {
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+    }
+    
+    return false;
+}
+
+// Add to DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    // Add feedback form submission
+    const feedbackForm = document.getElementById('feedbackForm');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitFeedback();
+        });
+    }
+    
+    // Close modal on outside click
+    const feedbackModal = document.getElementById('feedbackModal');
+    if (feedbackModal) {
+        feedbackModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFeedbackModal();
+            }
+        });
+    }
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('feedbackModal');
+            if (modal && modal.style.display === 'flex') {
+                closeFeedbackModal();
+            }
+        }
+    });
+});
+
+// Make functions globally available
+window.openFeedbackModal = openFeedbackModal;
+window.closeFeedbackModal = closeFeedbackModal;
+window.submitFeedback = submitFeedback;
+
+                          
