@@ -3236,25 +3236,42 @@ html {
 }
 
 
-/* Video Section Styles */
+/* Demo Section - UPDATED */
+.demo-section {
+    padding: 8rem 0;
+    background: var(--bg-light);
+    text-align: center;
+    position: relative;
+}
+
+.demo-section h2 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+/* Video Container - FIXED */
 .video-container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 40px auto 0;
     position: relative;
 }
 
 .video-wrapper {
     position: relative;
     width: 100%;
-    border-radius: 16px;
+    height: 500px; /* Fixed height */
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 25px 50px -12px rgba(47, 1, 126, 0.25);
     background: #000;
-    aspect-ratio: 16/9; /* Standard video aspect ratio */
+    border: 4px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Video Placeholder */
 .video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -3264,55 +3281,49 @@ html {
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
+    z-index: 2;
 }
 
 .video-placeholder:hover {
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-    transform: scale(1.02);
 }
 
 .video-placeholder i {
-    font-size: 64px;
+    font-size: 80px;
     color: white;
     margin-bottom: 20px;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
 }
 
 .video-placeholder p {
     color: white;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin: 0;
 }
 
 /* Video Player */
 #demoVideo {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 16px;
+    object-fit: cover; /* This ensures video fills container */
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
+    .video-wrapper {
+        height: 350px;
+        border-radius: 16px;
+    }
+    
     .video-placeholder i {
-        font-size: 48px;
+        font-size: 60px;
     }
     
     .video-placeholder p {
-        font-size: 18px;
-    }
-    
-    .video-wrapper {
-        border-radius: 12px;
+        font-size: 20px;
     }
 }
-
-
-
 
 
 
