@@ -204,18 +204,21 @@
         </div>
     </section>
 
- <!-- Demo Section -->
+<!-- Demo Section -->
 <section class="demo-section" id="demo-video">
     <div class="container">
         <div class="demo-content">
             <h2>Experience MEETO in Action</h2>
             <div class="video-container">
                 <div class="video-wrapper">
-                    <video id="demoVideo" controls style="display: none;">
+                    <!-- Video element (hidden initially) -->
+                    <video id="demoVideo" controls style="display: none; width: 100%; border-radius: 12px;">
                         <source src="images/Demo video .mp4" type="video/mp4">
-                        Your browser does not support the video tag.
+                        Your browser does not support HTML5 video.
                     </video>
-                    <div class="video-placeholder" id="videoPlaceholder">
+                    
+                    <!-- Placeholder that users click -->
+                    <div class="video-placeholder" id="videoPlaceholder" style="cursor: pointer;">
                         <i class="fas fa-play"></i>
                         <p>Watch Demo Video</p>
                     </div>
