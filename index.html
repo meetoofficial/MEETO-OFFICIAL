@@ -1237,7 +1237,24 @@ document.getElementById('feedbackModal').addEventListener('click', function(e) {
         closeFeedbackModal();
     }
 });
-
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #6B46C1 !important;
+    }
+    
+    label:hover {
+        cursor: pointer;
+    }
+`;
+document.head.appendChild(style);
+</script>
 
 
 
