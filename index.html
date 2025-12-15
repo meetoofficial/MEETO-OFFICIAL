@@ -568,11 +568,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
                     <i class="fas fa-question-circle"></i> Questions?
                 </a>
-                <a href="#" class="btn btn-outline btn-xl" id="share-feedback-btn">
+               <a href="#" class="btn btn-outline btn-xl" id="share-feedback-btn" onclick="openSimpleFeedback(); return false;">
     <i class="fas fa-comment-alt"></i> Share Feedback
 </a>
-
-
             </div>
             
             <div class="app-badges">
@@ -994,141 +992,89 @@ document.addEventListener('DOMContentLoaded', function() {
     window.closeQuestions = closeQuestions;
     window.toggleFaq = toggleFaq;
     </script>
-    <!-- Feedback Modal -->
-<div id="feedbackModal" class="feedback-modal">
-    <div class="feedback-modal-content">
-        <button class="close-feedback-modal" onclick="closeFeedbackModal()">×</button>
-        
-        <div class="feedback-header">
-            <div class="feedback-icon-circle">
-                <i class="fas fa-comment-dots"></i>
+<!-- Simple Feedback Modal -->
+<div id="simpleFeedbackModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h2 style="margin: 0 0 5px 0; color: #667eea;">Share Feedback</h2>
+                <p style="color: #666; margin: 0;">Help us improve MEETO</p>
             </div>
-            <h2>Share Your Feedback</h2>
-            <p>Help us improve MEETO for everyone</p>
+            <button onclick="closeSimpleFeedback()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999;">×</button>
         </div>
         
-        <form id="feedbackForm" class="feedback-form">
-            <!-- Category Selection -->
-            <div class="feedback-category">
-                <h4>What type of feedback?</h4>
-                <div class="category-options">
-                    <label class="category-option">
-                        <input type="radio" name="category" value="feature" checked>
-                        <div class="category-card">
-                            <i class="fas fa-lightbulb"></i>
-                            <h5>Feature Idea</h5>
-                            <p>Suggest new features</p>
-                        </div>
-                    </label>
-                    <label class="category-option">
-                        <input type="radio" name="category" value="improvement">
-                        <div class="category-card">
-                            <i class="fas fa-tools"></i>
-                            <h5>Improvement</h5>
-                            <p>Make something better</p>
-                        </div>
-                    </label>
-                    <label class="category-option">
-                        <input type="radio" name="category" value="bug">
-                        <div class="category-card">
-                            <i class="fas fa-bug"></i>
-                            <h5>Bug Report</h5>
-                            <p>Report an issue</p>
-                        </div>
-                    </label>
-                </div>
+        <form id="simpleFeedbackForm" onsubmit="submitSimpleFeedback(event)">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Feedback</label>
+                <textarea id="simpleFeedbackText" placeholder="Tell us what you think about MEETO..." style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 16px;" rows="6" required></textarea>
             </div>
             
-            <!-- Rating -->
-            <div class="feedback-rating">
-                <h4>How would you rate your experience?</h4>
-                <div class="star-rating">
-                    <input type="radio" id="star5" name="rating" value="5">
-                    <label for="star5">★</label>
-                    <input type="radio" id="star4" name="rating" value="4">
-                    <label for="star4">★</label>
-                    <input type="radio" id="star3" name="rating" value="3" checked>
-                    <label for="star3">★</label>
-                    <input type="radio" id="star2" name="rating" value="2">
-                    <label for="star2">★</label>
-                    <input type="radio" id="star1" name="rating" value="1">
-                    <label for="star1">★</label>
-                </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email (optional)</label>
+                <input type="email" id="simpleFeedbackEmail" placeholder="your@email.com" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px;">
             </div>
             
-            <!-- Feedback Details -->
-            <div class="form-group">
-                <label for="feedbackTitle">Brief Summary</label>
-                <input type="text" id="feedbackTitle" placeholder="What's this about?" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="feedbackDetails">Details</label>
-                <textarea id="feedbackDetails" placeholder="Please share more details..." rows="4" required></textarea>
-            </div>
-            
-            <!-- Optional Contact -->
-            <div class="optional-contact">
-                <label class="contact-toggle">
-                    <input type="checkbox" id="allowContact">
-                    <span class="toggle-slider"></span>
-                    <span>I'd like updates on this feedback</span>
-                </label>
-                <input type="email" id="feedbackEmail" placeholder="Your email (optional)" class="email-input" style="display: none;">
-            </div>
-            
-            <button type="submit" class="submit-feedback-btn">
-                <span class="btn-text">Submit Feedback</span>
-                <span class="btn-loading" style="display: none;">
-                    <i class="fas fa-spinner fa-spin"></i> Sending...
-                </span>
+            <button type="submit" style="background: #667eea; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%;">
+                Submit Feedback
             </button>
         </form>
         
-        <div class="feedback-success" id="feedbackSuccess" style="display: none;">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Thank You!</h3>
-            <p>Your feedback has been submitted. We appreciate your help in improving MEETO.</p>
-            <button class="btn btn-primary" onclick="closeFeedbackModal()">Close</button>
+        <div id="simpleFeedbackSuccess" style="text-align: center; display: none;">
+            <div style="font-size: 50px; color: #4CAF50; margin-bottom: 20px;">✓</div>
+            <h3 style="margin-bottom: 10px;">Thank You!</h3>
+            <p style="color: #666; margin-bottom: 30px;">Your feedback has been submitted. We appreciate your help!</p>
+            <button onclick="closeSimpleFeedback()" style="background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">
+                Close
+            </button>
         </div>
     </div>
 </div>
 
-// Check if feedback functions are available, if not, define simple versions
-if (typeof openFeedbackModal === 'undefined') {
-    window.openFeedbackModal = function() {
-        const modal = document.getElementById('feedbackModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    };
+<script>
+// Simple Feedback Functions
+function openSimpleFeedback() {
+    const modal = document.getElementById('simpleFeedbackModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
-if (typeof closeFeedbackModal === 'undefined') {
-    window.closeFeedbackModal = function() {
-        const modal = document.getElementById('feedbackModal');
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    };
+function closeSimpleFeedback() {
+    const modal = document.getElementById('simpleFeedbackModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
-// Handle the button click with event listener (safer than onclick)
-document.addEventListener('DOMContentLoaded', function() {
-    const feedbackBtn = document.getElementById('share-feedback-btn');
-    if (feedbackBtn) {
-        feedbackBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (typeof openFeedbackModal === 'function') {
-                openFeedbackModal();
-            }
-        });
+function submitSimpleFeedback(event) {
+    event.preventDefault();
+    
+    const feedback = document.getElementById('simpleFeedbackText').value.trim();
+    
+    if (!feedback) {
+        alert('Please enter your feedback');
+        return false;
+    }
+    
+    // For now, just show success (you can add Firebase later)
+    document.getElementById('simpleFeedbackForm').style.display = 'none';
+    document.getElementById('simpleFeedbackSuccess').style.display = 'block';
+    
+    return false;
+}
+
+// Close modal on outside click
+document.getElementById('simpleFeedbackModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeSimpleFeedback();
     }
 });
+
+    
+</script>
+
 
     
 </body>
