@@ -554,36 +554,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     </div>
 </section>
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to make plans that actually happen ?</h2>
-               
-                <!-- Updated: Buttons in same row with proper spacing -->
-                <div class="cta-actions" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
-                    <a href="#" class="btn btn-primary btn-xl" id="join-waitlist-btn" onclick="openMinimalWaitlist(); return false;">
-                        <i class="fas fa-user-plus"></i> Join Waitlist
-                    </a>
-                    <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
-                        <i class="fas fa-question-circle"></i> Questions?
-                    </a>
+   <!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to make plans that actually happen?</h2>
+            
+            <!-- Updated: All three buttons in same row -->
+            <div class="cta-actions" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 30px 0;">
+                <a href="#" class="btn btn-primary btn-xl" id="join-waitlist-btn" onclick="openMinimalWaitlist(); return false;">
+                    <i class="fas fa-user-plus"></i> Join Waitlist
+                </a>
+                <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
+                    <i class="fas fa-question-circle"></i> Questions?
+                </a>
+                <a href="#" class="btn btn-outline btn-xl" onclick="openFeedbackModal(); return false;">
+                    <i class="fas fa-comment-alt"></i> Share Feedback
+                </a>
+            </div>
+            
+            <div class="app-badges">
+                <div class="badge">
+                    <i class="fab fa-apple"></i>
+                    <span>Coming Soon on iOS</span>
                 </div>
-                
-                <div class="app-badges">
-                    <div class="badge">
-                        <i class="fab fa-apple"></i>
-                        <span>Coming Soon on iOS</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fab fa-google-play"></i>
-                        <span>Coming Soon on Android</span>
-                    </div>
+                <div class="badge">
+                    <i class="fab fa-google-play"></i>
+                    <span>Coming Soon on Android</span>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
@@ -624,21 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             
-                        <!-- Add Feedback Buttons Section -->
-            <div class="footer-actions">
-                <div class="footer-buttons">
-                    <a href="#" class="btn btn-outline" onclick="openMinimalWaitlist(); return false;">
-                        <i class="fas fa-user-plus"></i> Join Waitlist
-                    </a>
-                    <a href="#" class="btn btn-outline" onclick="openQuestions(); return false;">
-                        <i class="fas fa-question-circle"></i> Questions?
-                    </a>
-                    <a href="#" class="btn btn-primary" onclick="openFeedbackModal(); return false;">
-                        <i class="fas fa-comment-alt"></i> Share Feedback
-                    </a>
-                </div>
-                <p class="footer-actions-text">Your feedback helps us build a better MEETO</p>
-            </div>
+    
             
             <div class="footer-bottom">
                 <p>&copy; <span class="current-year">2025</span> MEETO. All rights reserved.</p>
