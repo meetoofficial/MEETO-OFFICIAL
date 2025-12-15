@@ -572,6 +572,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <i class="fas fa-comment-alt"></i> Share Feedback
 </a>
 
+
             </div>
             
             <div class="app-badges">
@@ -1094,6 +1095,40 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
+
+// Check if feedback functions are available, if not, define simple versions
+if (typeof openFeedbackModal === 'undefined') {
+    window.openFeedbackModal = function() {
+        const modal = document.getElementById('feedbackModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    };
+}
+
+if (typeof closeFeedbackModal === 'undefined') {
+    window.closeFeedbackModal = function() {
+        const modal = document.getElementById('feedbackModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    };
+}
+
+// Handle the button click with event listener (safer than onclick)
+document.addEventListener('DOMContentLoaded', function() {
+    const feedbackBtn = document.getElementById('share-feedback-btn');
+    if (feedbackBtn) {
+        feedbackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof openFeedbackModal === 'function') {
+                openFeedbackModal();
+            }
+        });
+    }
+});
 
     
 </body>
