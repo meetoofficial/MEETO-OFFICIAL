@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="#" class="btn btn-outline btn-xl" onclick="openQuestions()">
                     <i class="fas fa-question-circle"></i> Questions?
                 </a>
-               <a href="#" class="btn btn-outline btn-xl" id="share-feedback-btn" onclick="openSimpleFeedback(); return false;">
+               <a href="#" class="btn btn-outline btn-xl" id="share-feedback-btn" onclick="openFeedbackModal(); return false;">
     <i class="fas fa-comment-alt"></i> Share Feedback
 </a>
             </div>
@@ -992,85 +992,254 @@ document.addEventListener('DOMContentLoaded', function() {
     window.closeQuestions = closeQuestions;
     window.toggleFaq = toggleFaq;
     </script>
-<!-- Simple Feedback Modal -->
-<div id="simpleFeedbackModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;">
+<!-- Beautiful Feedback Modal -->
+<div id="feedbackModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 24px; padding: 40px; max-width: 520px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <div>
-                <h2 style="margin: 0 0 5px 0; color: #667eea;">Share Feedback</h2>
-                <p style="color: #666; margin: 0;">Help us improve MEETO</p>
+            <div style="flex: 1;">
+                <h2 style="margin: 0 0 8px 0; color: #6B46C1; font-size: 28px;">Share Your Thoughts</h2>
+                <p style="color: #666; margin: 0; font-size: 15px;">Help us make MEETO better for everyone</p>
             </div>
-            <button onclick="closeSimpleFeedback()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999;">×</button>
+            <button onclick="closeFeedbackModal()" style="background: #f5f5f5; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; color: #666; display: flex; align-items: center; justify-content: center; transition: 0.2s;" onmouseover="this.style.background='#e5e5e5'">×</button>
         </div>
         
-        <form id="simpleFeedbackForm" onsubmit="submitSimpleFeedback(event)">
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Feedback</label>
-                <textarea id="simpleFeedbackText" placeholder="Tell us what you think about MEETO..." style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 16px;" rows="6" required></textarea>
+        <form id="feedbackForm" onsubmit="submitFeedback(event)">
+            <!-- Rating -->
+            <div style="margin-bottom: 30px; text-align: center;">
+                <label style="display: block; margin-bottom: 15px; font-weight: 500; color: #333; font-size: 16px;">How would you rate MEETO?</label>
+                <div style="display: flex; justify-content: center; gap: 10px;">
+                    <input type="radio" id="star1" name="rating" value="1" style="display: none;">
+                    <label for="star1" style="font-size: 32px; color: #ddd; cursor: pointer; transition: 0.2s;" onmouseover="this.style.color='#ffd700'">★</label>
+                    
+                    <input type="radio" id="star2" name="rating" value="2" style="display: none;">
+                    <label for="star2" style="font-size: 32px; color: #ddd; cursor: pointer; transition: 0.2s;" onmouseover="this.style.color='#ffd700'">★</label>
+                    
+                    <input type="radio" id="star3" name="rating" value="3" style="display: none;" checked>
+                    <label for="star3" style="font-size: 32px; color: #ffd700; cursor: pointer; transition: 0.2s;">★</label>
+                    
+                    <input type="radio" id="star4" name="rating" value="4" style="display: none;">
+                    <label for="star4" style="font-size: 32px; color: #ddd; cursor: pointer; transition: 0.2s;" onmouseover="this.style.color='#ffd700'">★</label>
+                    
+                    <input type="radio" id="star5" name="rating" value="5" style="display: none;">
+                    <label for="star5" style="font-size: 32px; color: #ddd; cursor: pointer; transition: 0.2s;" onmouseover="this.style.color='#ffd700'">★</label>
+                </div>
             </div>
             
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email (optional)</label>
-                <input type="email" id="simpleFeedbackEmail" placeholder="your@email.com" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px;">
+            <!-- Feedback Type -->
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 12px; font-weight: 500; color: #333;">Feedback Type</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <label style="border: 2px solid #e5e5e5; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#6B46C1'">
+                        <input type="radio" name="type" value="suggestion" style="display: none;" checked>
+                        <div style="font-size: 24px; color: #6B46C1; margin-bottom: 8px;">💡</div>
+                        <div style="font-weight: 500; font-size: 14px;">Suggestion</div>
+                    </label>
+                    
+                    <label style="border: 2px solid #e5e5e5; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#6B46C1'">
+                        <input type="radio" name="type" value="bug" style="display: none;">
+                        <div style="font-size: 24px; color: #FF6B6B; margin-bottom: 8px;">🐛</div>
+                        <div style="font-weight: 500; font-size: 14px;">Bug Report</div>
+                    </label>
+                </div>
             </div>
             
-            <button type="submit" style="background: #667eea; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%;">
-                Submit Feedback
-            </button>
+            <!-- Message -->
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 500; color: #333;">Your Message</label>
+                <textarea id="feedbackMessage" placeholder="What's on your mind? Tell us everything..." style="width: 100%; padding: 16px; border: 2px solid #e5e5e5; border-radius: 12px; font-size: 15px; font-family: 'Inter', sans-serif; resize: vertical; min-height: 120px; transition: 0.2s;" required></textarea>
+            </div>
+            
+            <!-- Email (Optional) -->
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 500; color: #333;">Email (optional)</label>
+                <input type="email" id="feedbackEmail" placeholder="your@email.com" style="width: 100%; padding: 16px; border: 2px solid #e5e5e5; border-radius: 12px; font-size: 15px; transition: 0.2s;">
+                <p style="margin-top: 8px; font-size: 13px; color: #888;">We'll only contact you if we need more details</p>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" id="submitFeedbackBtn" style="background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%; transition: 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(107, 70, 193, 0.3)'">Submit Feedback</button>
         </form>
         
-        <div id="simpleFeedbackSuccess" style="text-align: center; display: none;">
-            <div style="font-size: 50px; color: #4CAF50; margin-bottom: 20px;">✓</div>
-            <h3 style="margin-bottom: 10px;">Thank You!</h3>
-            <p style="color: #666; margin-bottom: 30px;">Your feedback has been submitted. We appreciate your help!</p>
-            <button onclick="closeSimpleFeedback()" style="background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: 600;">
-                Close
-            </button>
+        <!-- Success Message -->
+        <div id="feedbackSuccess" style="text-align: center; display: none;">
+            <div style="font-size: 64px; color: #10B981; margin-bottom: 20px;">🎉</div>
+            <h3 style="margin-bottom: 15px; color: #333; font-size: 24px;">Thank You!</h3>
+            <p style="color: #666; margin-bottom: 30px; line-height: 1.5; font-size: 15px;">Your feedback means the world to us. We'll use it to make MEETO even better.</p>
+            <button onclick="closeFeedbackModal()" style="background: #6B46C1; color: white; border: none; padding: 14px 32px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 15px;">Close</button>
         </div>
     </div>
 </div>
 
 <script>
-// Simple Feedback Functions
-function openSimpleFeedback() {
-    const modal = document.getElementById('simpleFeedbackModal');
+// Feedback Functions
+function openFeedbackModal() {
+    console.log('Opening feedback modal...');
+    const modal = document.getElementById('feedbackModal');
     if (modal) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        
+        // Reset form
+        document.getElementById('feedbackForm').style.display = 'block';
+        document.getElementById('feedbackSuccess').style.display = 'none';
+        document.getElementById('feedbackMessage').value = '';
+        document.getElementById('feedbackEmail').value = '';
+        
+        // Setup star rating interaction
+        setupStarRating();
     }
 }
 
-function closeSimpleFeedback() {
-    const modal = document.getElementById('simpleFeedbackModal');
+function closeFeedbackModal() {
+    const modal = document.getElementById('feedbackModal');
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 }
 
-function submitSimpleFeedback(event) {
+function setupStarRating() {
+    const stars = document.querySelectorAll('[name="rating"]');
+    const starLabels = document.querySelectorAll('[name="rating"] + label');
+    
+    starLabels.forEach((label, index) => {
+        label.addEventListener('click', () => {
+            // Update colors
+            starLabels.forEach((l, i) => {
+                l.style.color = i <= index ? '#ffd700' : '#ddd';
+            });
+        });
+        
+        label.addEventListener('mouseover', () => {
+            starLabels.forEach((l, i) => {
+                l.style.color = i <= index ? '#ffd700' : '#ddd';
+            });
+        });
+        
+        label.addEventListener('mouseout', () => {
+            const checkedStar = document.querySelector('[name="rating"]:checked');
+            const checkedIndex = Array.from(stars).indexOf(checkedStar);
+            starLabels.forEach((l, i) => {
+                l.style.color = i <= checkedIndex ? '#ffd700' : '#ddd';
+            });
+        });
+    });
+}
+
+async function submitFeedback(event) {
     event.preventDefault();
     
-    const feedback = document.getElementById('simpleFeedbackText').value.trim();
+    const message = document.getElementById('feedbackMessage').value.trim();
+    const email = document.getElementById('feedbackEmail').value.trim();
+    const rating = document.querySelector('[name="rating"]:checked').value;
+    const type = document.querySelector('[name="type"]:checked').value;
     
-    if (!feedback) {
-        alert('Please enter your feedback');
+    if (!message) {
+        alert('Please tell us your thoughts!');
         return false;
     }
     
-    // For now, just show success (you can add Firebase later)
-    document.getElementById('simpleFeedbackForm').style.display = 'none';
-    document.getElementById('simpleFeedbackSuccess').style.display = 'block';
+    // Show loading
+    const submitBtn = document.getElementById('submitFeedbackBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 8px;"><div style="width: 16px; height: 16px; border: 2px solid white; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div> Saving...</span>';
+    submitBtn.disabled = true;
+    
+    try {
+        // Import Firebase functions
+        const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js");
+        
+        // Initialize Firebase if not already done
+        if (typeof firebase === 'undefined') {
+            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js");
+            const firebaseConfig = {
+                apiKey: "AIzaSyAOwk37TCbc_loEb-LFXLK3qWQBdOaaqlU",
+                authDomain: "meeto-website.firebaseapp.com",
+                projectId: "meeto-website",
+                storageBucket: "meeto-website.firebasestorage.app",
+                messagingSenderId: "950489624932",
+                appId: "1:950489624932:web:65f005771901f763e64a71",
+                measurementId: "G-TVM3G555P5"
+            };
+            window.firebaseApp = initializeApp(firebaseConfig);
+        }
+        
+        const db = getFirestore(firebaseApp || window.firebaseApp);
+        
+        // Save to Firebase
+        const feedbackData = {
+            message: message,
+            rating: parseInt(rating),
+            type: type,
+            timestamp: serverTimestamp(),
+            reviewed: false,
+            status: 'new'
+        };
+        
+        // Add email if provided
+        if (email) {
+            feedbackData.email = email;
+        }
+        
+        const docRef = await addDoc(collection(db, 'feedback'), feedbackData);
+        console.log('Feedback saved with ID:', docRef.id);
+        
+        // Show success
+        document.getElementById('feedbackForm').style.display = 'none';
+        document.getElementById('feedbackSuccess').style.display = 'block';
+        
+        // Small celebration effect
+        createConfetti();
+        
+    } catch (error) {
+        console.error('Error saving feedback:', error);
+        alert('Oops! Something went wrong. Please try again.');
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
     
     return false;
 }
 
+function createConfetti() {
+    const colors = ['#6B46C1', '#805AD5', '#9F7AEA', '#D6BCFA'];
+    
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '10001';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-20px';
+        
+        document.body.appendChild(confetti);
+        
+        const animation = confetti.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(${window.innerHeight + 50}px) rotate(${360}deg)`, opacity: 0 }
+        ], {
+            duration: 1500 + Math.random() * 1000,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+    }
+}
+
 // Close modal on outside click
-document.getElementById('simpleFeedbackModal').addEventListener('click', function(e) {
+document.getElementById('feedbackModal').addEventListener('click', function(e) {
     if (e.target === this) {
-        closeSimpleFeedback();
+        closeFeedbackModal();
     }
 });
+
+
+
 
     
 </script>
